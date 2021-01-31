@@ -48,8 +48,8 @@ public class Terrain {
 	public static final int CHASM_FLOOR_SP	= 44;
 	public static final int CHASM_WALL		= 45;
 	public static final int CHASM_WATER		= 46;
-	public static final int WHEAT			= 62;
-	public static final int HIGH_WHEAT		= 75;
+	public static final int WHEAT			= 66;
+	public static final int HIGH_WHEAT		= 79;
 	
 	public static final int SECRET_DOOR				= 16;
 	public static final int TOXIC_TRAP				= 17;
