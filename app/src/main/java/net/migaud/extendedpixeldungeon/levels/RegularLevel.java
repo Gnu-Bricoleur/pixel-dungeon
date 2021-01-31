@@ -284,6 +284,7 @@ public abstract class RegularLevel extends Level {
 					}
 				}
 				map[i] = (Random.Float() < count / 12f) ? Terrain.HIGH_GRASS : Terrain.GRASS;
+				map[i] = (Random.Float() < count / 12f) ? Terrain.HIGH_WHEAT : Terrain.WHEAT;
 			}
 		}
 	}
