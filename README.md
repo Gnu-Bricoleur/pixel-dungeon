@@ -1,16 +1,6 @@
-Pixel Dungeon
+Extended Pixel Dungeon
 =============
 
-Traditional roguelike game with pixel-art graphics and simple interface.
-
-Pixel Dungeon on GooglePlay: 
-https://play.google.com/store/apps/details?id=com.watabou.pixeldungeon
-
-Official web-site: 
-http://pixeldungeon.watabou.ru/
-
-Developer's blog: 
-http://pixeldungeon.tumblr.com/
-
-To build the game you will need my unnamed game library:
-https://github.com/watabou/PD-classes
+Another fork from Watabou's classic Pixel Dungeon https://github.com/watabou/pixel-dungeon
+Since this is a die and retry, you end up spending waaayyy more time in the 5 first floors than in the following ones.
+This fork aims to extend the content available to make the experience in the first floors more diverse and interesting.
