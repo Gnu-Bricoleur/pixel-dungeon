@@ -141,6 +141,7 @@ public abstract class Level implements Bundlable {
 	public int color2 = 0x88CC44;
 	
 	protected static boolean pitRoomNeeded = false;
+	protected static boolean fieldRoomNeeded = false;
 	protected static boolean weakFloorCreated = false;
 	
 	private static final String MAP			= "map";
@@ -156,7 +157,7 @@ public abstract class Level implements Bundlable {
 	public void create() {
 		
 		resizingNeeded = false;
-		
+		fieldRoomNeeded = true;
 		map = new int[LENGTH];
 		visited = new boolean[LENGTH];
 		Arrays.fill( visited, false );

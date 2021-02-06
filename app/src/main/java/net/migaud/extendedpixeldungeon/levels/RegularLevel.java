@@ -131,6 +131,22 @@ public abstract class RegularLevel extends Level {
 				shop.type = Room.Type.SHOP;
 			}
 		}
+
+		if (true) { //always put a field ??
+			Room field = null;
+			for (Room r : rooms) {
+				if (r.connected.size() == 1 && r.width() >= 4 && r.height() >= 4) {
+					field = r;
+					break;
+				}
+			}
+
+			if (field == null) {
+				return false;
+			} else {
+				field.type = Room.Type.FIELD;
+			}
+		}
 		
 		specials = new ArrayList<Room.Type>( Room.SPECIALS );
 		if (Dungeon.bossLevel( Dungeon.depth + 1 )) {
@@ -182,20 +198,25 @@ public abstract class RegularLevel extends Level {
 						r.type = Type.PIT;
 						pitRoomNeeded = false;
 
-						specials.remove( Type.ARMORY );
-						specials.remove( Type.CRYPT );
-						specials.remove( Type.LABORATORY );
-						specials.remove( Type.LIBRARY );
-						specials.remove( Type.STATUE );
-						specials.remove( Type.TREASURY );
-						specials.remove( Type.VAULT );
-						specials.remove( Type.WEAK_FLOOR );
-						
+						specials.remove(Type.ARMORY);
+						specials.remove(Type.CRYPT);
+						specials.remove(Type.LABORATORY);
+						specials.remove(Type.LIBRARY);
+						specials.remove(Type.STATUE);
+						specials.remove(Type.TREASURY);
+						specials.remove(Type.VAULT);
+						specials.remove(Type.WEAK_FLOOR);
+
 					} else if (Dungeon.depth % 5 == 2 && specials.contains( Type.LABORATORY )) {
 						
 						r.type = Type.LABORATORY;
 						
-					} else {
+					} /*else if (fieldRoomNeeded) {
+
+						r.type = Type.FIELD;
+						fieldRoomNeeded = false;
+
+					} */else {
 						
 						int n = specials.size();
 						r.type = specials.get( Math.min( Random.Int( n ), Random.Int( n ) ) );

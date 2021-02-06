@@ -55,7 +55,7 @@ public class HighWheat {
                 }
             }
             // Seed
-            if (herbalismLevel >= 0 && Random.Int( 18 ) <= Random.Int( herbalismLevel + 1 )) {
+            if (herbalismLevel >= 0 && Random.Int( 3 ) <= Random.Int( herbalismLevel + 1 )) {
                 level.drop(new Wheat.Seed(), pos ).sprite.drop();
             }
         }
