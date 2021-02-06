@@ -71,13 +71,4 @@ public class HighGrass {
 		CellEmitter.get( pos ).burst( LeafParticle.LEVEL_SPECIFIC, leaves );
 		Dungeon.observe();
 	}
-
-	public static void wheattrample( Level level, int pos, Char ch ) {
-
-		Level.set( pos, Terrain.WHEAT );
-		GameScene.updateMap( pos );
-
-		CellEmitter.get( pos ).burst( LeafParticle.LEVEL_SPECIFIC, 12 );
-		Dungeon.observe();
-	}
 }

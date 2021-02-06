@@ -23,6 +23,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 
+import net.migaud.extendedpixeldungeon.levels.features.HighWheat;
 import net.migaud.extendedpixeldungeon.noosa.Scene;
 import net.migaud.extendedpixeldungeon.noosa.audio.Sample;
 import net.migaud.extendedpixeldungeon.Assets;
@@ -65,6 +66,7 @@ import net.migaud.extendedpixeldungeon.levels.painters.Painter;
 import net.migaud.extendedpixeldungeon.levels.traps.*;
 import net.migaud.extendedpixeldungeon.mechanics.ShadowCaster;
 import net.migaud.extendedpixeldungeon.plants.Plant;
+import net.migaud.extendedpixeldungeon.plants.Wheat;
 import net.migaud.extendedpixeldungeon.scenes.GameScene;
 import net.migaud.extendedpixeldungeon.utils.GLog;
 import net.migaud.extendedpixeldungeon.utils.Bundlable;
@@ -699,7 +701,7 @@ public abstract class Level implements Bundlable {
 			break;
 
 		case Terrain.HIGH_WHEAT:
-			HighGrass.wheattrample( this, cell, ch );
+			HighWheat.trample( this, cell, ch );
 			break;
 			
 		case Terrain.WELL:
