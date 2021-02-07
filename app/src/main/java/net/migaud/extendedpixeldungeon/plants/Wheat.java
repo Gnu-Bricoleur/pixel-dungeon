@@ -33,7 +33,7 @@ public class Wheat extends Plant {
     private static final String TXT_DESC = "Wheat is the perfect plant to cook bread";
 
     {
-        image = 4;
+        image = 12;
         plantName = "Wheat";
     }
 
@@ -42,11 +42,11 @@ public class Wheat extends Plant {
         super.activate( ch );
 
         if (ch != null) {
-            Buff.affect( ch, Health.class );
+            //Buff.affect( ch, Health.class );
         }
 
         if (Dungeon.visible[pos]) {
-            CellEmitter.get( pos ).start( ShaftParticle.FACTORY, 0.2f, 3 );
+            //CellEmitter.get( pos ).start( ShaftParticle.FACTORY, 0.2f, 3 );
         }
     }
 
@@ -89,8 +89,8 @@ public class Wheat extends Plant {
             if (target.pos != pos || target.HP >= target.HT) {
                 detach();
             } else {
-                target.HP = Math.min( target.HT, target.HP + target.HT / 10 );
-                target.sprite.emitter().burst( Speck.factory( Speck.HEALING ), 1 );
+                //target.HP = Math.min( target.HT, target.HP + target.HT / 10 );
+                //target.sprite.emitter().burst( Speck.factory( Speck.HEALING ), 1 );
             }
             spend( STEP );
             return true;
