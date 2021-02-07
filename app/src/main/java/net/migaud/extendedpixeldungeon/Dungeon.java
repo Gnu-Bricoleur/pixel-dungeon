@@ -535,6 +535,90 @@ public class Dungeon {
 			}
 		}
 	}
+
+	public static void RetryGame( String fileName, boolean fullLoad ) throws IOException {
+
+		Bundle bundle = gameBundle( fileName );
+
+		Dungeon.challenges = bundle.getInt( CHALLENGES );
+
+		Dungeon.level = null;
+		Dungeon.depth = -1;
+
+		if (fullLoad) {
+			PathFinder.setMapSize( Level.WIDTH, Level.HEIGHT );
+		}
+
+		Scroll.restore( bundle );
+		Potion.restore( bundle );
+		Wand.restore( bundle );
+		Ring.restore( bundle );
+
+		potionOfStrength = bundle.getInt( POS );
+		scrollsOfUpgrade = bundle.getInt( SOU );
+		scrollsOfEnchantment = bundle.getInt( SOE );
+		dewVial = bundle.getBoolean( DV );
+
+		if (fullLoad) {
+			chapters = new HashSet<Integer>();
+			int ids[] = bundle.getIntArray( CHAPTERS );
+			if (ids != null) {
+				for (int id : ids) {
+					chapters.add( id );
+				}
+			}
+
+			Bundle quests = bundle.getBundle( QUESTS );
+			if (!quests.isNull()) {
+				Ghost.Quest.restoreFromBundle( quests );
+				Wandmaker.Quest.restoreFromBundle( quests );
+				Blacksmith.Quest.restoreFromBundle( quests );
+				Imp.Quest.restoreFromBundle( quests );
+			} else {
+				Ghost.Quest.reset();
+				Wandmaker.Quest.reset();
+				Blacksmith.Quest.reset();
+				Imp.Quest.reset();
+			}
+
+			Room.restoreRoomsFromBundle( bundle );
+		}
+
+		Bundle badges = bundle.getBundle( BADGES );
+		if (!badges.isNull()) {
+			Badges.loadLocal( badges );
+		} else {
+			Badges.reset();
+		}
+
+		QuickSlot.restore( bundle );
+
+		@SuppressWarnings("unused")
+		String version = bundle.getString( VERSION );
+
+		hero = null;
+		hero = (Hero)bundle.get( HERO );
+
+		QuickSlot.compress();
+
+		gold = bundle.getInt( GOLD );
+		depth = bundle.getInt( DEPTH );
+
+		Statistics.restoreFromBundle( bundle );
+		Journal.restoreFromBundle( bundle );
+
+		droppedItems = new SparseArray<ArrayList<Item>>();
+		for (int i=2; i <= Statistics.deepestFloor + 1; i++) {
+			ArrayList<Item> dropped = new ArrayList<Item>();
+			for (Bundlable b : bundle.getCollection( String.format( DROPPED, i ) ) ) {
+				dropped.add( (Item)b );
+			}
+			if (!dropped.isEmpty()) {
+				droppedItems.put( i, dropped );
+			}
+		}
+	}
+
 	
 	public static Level loadLevel( HeroClass cl ) throws IOException {
 		
