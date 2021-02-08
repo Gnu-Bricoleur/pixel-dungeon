@@ -105,6 +105,7 @@ import net.migaud.extendedpixeldungeon.ui.BuffIndicator;
 import net.migaud.extendedpixeldungeon.utils.GLog;
 import net.migaud.extendedpixeldungeon.windows.WndMessage;
 import net.migaud.extendedpixeldungeon.windows.WndResurrect;
+import net.migaud.extendedpixeldungeon.windows.WndRetry;
 import net.migaud.extendedpixeldungeon.windows.WndTradeItem;
 import net.migaud.extendedpixeldungeon.utils.Bundle;
 import net.migaud.extendedpixeldungeon.utils.Random;
@@ -177,6 +178,10 @@ public class Hero extends Char {
 		belongings = new Belongings( this );
 		
 		visibleEnemies = new ArrayList<Mob>();
+	}
+
+	public static void reallyDie(Object causeOfDeath) {
+		public static void reallyDie( causeOfDeath , false);
 	}
 
 	public int STR() {
@@ -1164,8 +1169,8 @@ public class Hero extends Char {
 		}
 	}
 	
-	public static void reallyDie( Object cause ) {
-		
+	public static void reallyDie( Object cause , Boolean retry) {
+
 		int length = Level.LENGTH;
 		int[] map = Dungeon.level.map;
 		boolean[] visited = Dungeon.level.visited;
@@ -1218,8 +1223,13 @@ public class Hero extends Char {
 		if (cause instanceof Hero.Doom) {
 			((Hero.Doom)cause).onDeath();
 		}
-		
-		Dungeon.deleteGame( Dungeon.hero.heroClass, true );
+		if(retry) {
+			Dungeon.deleteGame( Dungeon.hero.heroClass, false );
+			GameScene.show( new WndRetry( cause ) );
+		} else {
+			Dungeon.deleteGame(Dungeon.hero.heroClass, true);
+		}
+
 	}
 	
 	@Override
