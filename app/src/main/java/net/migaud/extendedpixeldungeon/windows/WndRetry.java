@@ -1,20 +1,3 @@
-package net.migaud.extendedpixeldungeon.windows;
-
-import net.migaud.extendedpixeldungeon.Rankings;
-import net.migaud.extendedpixeldungeon.Statistics;
-import net.migaud.extendedpixeldungeon.actors.hero.Hero;
-import net.migaud.extendedpixeldungeon.items.Ankh;
-import net.migaud.extendedpixeldungeon.noosa.BitmapTextMultiline;
-import net.migaud.extendedpixeldungeon.noosa.Game;
-import net.migaud.extendedpixeldungeon.scenes.InterlevelScene;
-import net.migaud.extendedpixeldungeon.scenes.PixelScene;
-import net.migaud.extendedpixeldungeon.sprites.ItemSprite;
-import net.migaud.extendedpixeldungeon.ui.RedButton;
-import net.migaud.extendedpixeldungeon.ui.Window;
-
-public class WndRetry {
-}
-
 /*
  * Pixel Dungeon
  * Copyright (C) 2012-2015 Oleg Dolya
@@ -46,20 +29,20 @@ package net.migaud.extendedpixeldungeon.windows;
         import net.migaud.extendedpixeldungeon.ui.RedButton;
         import net.migaud.extendedpixeldungeon.ui.Window;
 
-public class WndResurrect extends Window {
+public class WndRetry extends Window {
 
-    private static final String TXT_MESSAGE	= "You died, but you were given another chance to win this dungeon. Will you take it?";
-    private static final String TXT_YES		= "Yes, I will fight!";
+    private static final String TXT_MESSAGE	= "You died. Do you want to incarn another Hero exploring this very dungeon ?";
+    private static final String TXT_YES		= "Yes, I will avenge myself!";
     private static final String TXT_NO		= "No, I give up";
 
     private static final int WIDTH		= 120;
     private static final int BTN_HEIGHT	= 20;
     private static final float GAP		= 2;
 
-    public static WndResurrect instance;
+    public static WndRetry instance;
     public static Object causeOfDeath;
 
-    public WndResurrect(Object causeOfDeath ) {
+    public WndRetry(Object causeOfDeath ) {
 
         super();
 
@@ -69,15 +52,13 @@ public class WndResurrect extends Window {
         BitmapTextMultiline message = PixelScene.createMultiline( TXT_MESSAGE, 6 );
         message.maxWidth = WIDTH;
         message.measure();
-        message.y = titlebar.bottom() + GAP;
+        message.y = GAP;
         add( message );
 
         RedButton btnYes = new RedButton( TXT_YES ) {
             @Override
             protected void onClick() {
                 hide();
-
-                Statistics.ankhsUsed++;
 
                 InterlevelScene.mode = InterlevelScene.Mode.RESURRECT;
                 Game.switchScene( InterlevelScene.class );
@@ -92,7 +73,7 @@ public class WndResurrect extends Window {
                 hide();
 
                 Rankings.INSTANCE.submit( false );
-                Hero.reallyDie( WndResurrect.causeOfDeath );
+                Hero.reallyDie( WndResurrect.causeOfDeath , false);
             }
         };
         btnNo.setRect( 0, btnYes.bottom() + GAP, WIDTH, BTN_HEIGHT );

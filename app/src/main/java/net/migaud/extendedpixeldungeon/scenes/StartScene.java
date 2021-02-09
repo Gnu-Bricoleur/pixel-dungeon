@@ -292,15 +292,15 @@ public class StartScene extends PixelScene {
 				
 			} else {
 				btnLoad.visible = false;
-				btnRetry.visible = true;
+				//btnRetry.visible = true;
 				btnNewGame.visible = true;
 				btnNewGame.secondary( null, false );
-				float w = (Camera.main.width - GAP) / 2 - buttonX;
-				//btnNewGame.setRect( buttonX, buttonY, Camera.main.width - buttonX * 2, BUTTON_HEIGHT );
-				btnRetry.setRect(
-						buttonX, buttonY, w, BUTTON_HEIGHT );
-				btnNewGame.setRect(
-						btnLoad.right() + GAP, buttonY, w, BUTTON_HEIGHT );
+				//a.main.width - GAP) / 2 - buttonX;
+				btnNewGame.setRect( buttonX, buttonY, Camera.main.width - buttonX * 2, BUTTON_HEIGHT );
+				//btnRetry.setRect(
+				//		buttonX, buttonY, w, BUTTON_HEIGHT );
+				//btnNewGame.setRect(
+				//		btnLoad.right() + GAP, buttonY, w, BUTTON_HEIGHT );
 			}
 			
 		} else {

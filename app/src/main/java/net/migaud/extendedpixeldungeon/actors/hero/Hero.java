@@ -181,7 +181,7 @@ public class Hero extends Char {
 	}
 
 	public static void reallyDie(Object causeOfDeath) {
-		public static void reallyDie( causeOfDeath , false);
+		reallyDie( causeOfDeath , true);
 	}
 
 	public int STR() {
@@ -1227,7 +1227,7 @@ public class Hero extends Char {
 			Dungeon.deleteGame( Dungeon.hero.heroClass, false );
 			GameScene.show( new WndRetry( cause ) );
 		} else {
-			Dungeon.deleteGame(Dungeon.hero.heroClass, true);
+			reallyDie(cause, false);
 		}
 
 	}
