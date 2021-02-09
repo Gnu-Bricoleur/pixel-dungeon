@@ -1227,7 +1227,8 @@ public class Hero extends Char {
 			Dungeon.deleteGame( Dungeon.hero.heroClass, false );
 			GameScene.show( new WndRetry( cause ) );
 		} else {
-			reallyDie(cause, false);
+			//reallyDie(cause, false);
+			Dungeon.deleteGame( Dungeon.hero.heroClass, true );
 		}
 
 	}
