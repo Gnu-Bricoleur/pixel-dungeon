@@ -54,6 +54,7 @@ public class StartScene extends PixelScene {
 	private static final float GAP				= 2;
 	
 	private static final String TXT_LOAD	= "Load Game";
+	private static final String TXT_RETRY	= "Retry Game";
 	private static final String TXT_NEW		= "New Game";
 	
 	private static final String TXT_ERASE		= "Erase current game";
@@ -81,6 +82,7 @@ public class StartScene extends PixelScene {
 	private float buttonY;
 	
 	private GameButton btnLoad;
+	private GameButton btnRetry;
 	private GameButton btnNewGame;
 	
 	private boolean huntressUnlocked;
@@ -152,8 +154,17 @@ public class StartScene extends PixelScene {
 				Game.switchScene( InterlevelScene.class );
 			}
 		};
-		add( btnLoad );	
-		
+		add( btnLoad );
+
+		btnRetry = new GameButton( TXT_RETRY ) {
+			@Override
+			protected void onClick() {
+				InterlevelScene.mode = InterlevelScene.Mode.CONTINUE;
+				Game.switchScene( InterlevelScene.class );
+			}
+		};
+		add( btnRetry );
+
 		float centralHeight = buttonY - title.y - title.height();
 		
 		HeroClass[] classes = {
@@ -265,13 +276,13 @@ public class StartScene extends PixelScene {
 			
 			GamesInProgress.Info info = GamesInProgress.check( curClass );
 			if (info != null) {
-				
+				btnRetry.visible = false;
 				btnLoad.visible = true;
 				btnLoad.secondary( Utils.format( TXT_DPTH_LVL, info.depth, info.level ), info.challenges );
 				
 				btnNewGame.visible = true;
 				btnNewGame.secondary( TXT_ERASE, false );
-				
+
 				float w = (Camera.main.width - GAP) / 2 - buttonX;
 				
 				btnLoad.setRect(
@@ -281,10 +292,15 @@ public class StartScene extends PixelScene {
 				
 			} else {
 				btnLoad.visible = false;
-				
+				//btnRetry.visible = true;
 				btnNewGame.visible = true;
 				btnNewGame.secondary( null, false );
+				//a.main.width - GAP) / 2 - buttonX;
 				btnNewGame.setRect( buttonX, buttonY, Camera.main.width - buttonX * 2, BUTTON_HEIGHT );
+				//btnRetry.setRect(
+				//		buttonX, buttonY, w, BUTTON_HEIGHT );
+				//btnNewGame.setRect(
+				//		btnLoad.right() + GAP, buttonY, w, BUTTON_HEIGHT );
 			}
 			
 		} else {
