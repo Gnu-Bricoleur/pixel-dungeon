@@ -44,12 +44,13 @@ public class InterlevelScene extends PixelScene {
 	private static final String TXT_RESURRECTING= "Resurrecting...";
 	private static final String TXT_RETURNING	= "Returning...";
 	private static final String TXT_FALLING		= "Falling...";
+	private static final String TXT_RETRYING	= "Here we go again...";
 	
 	private static final String ERR_FILE_NOT_FOUND	= "File not found. For some reason.";
 	private static final String ERR_GENERIC			= "Something went wrong..."	;	
 	
 	public static enum Mode {
-		DESCEND, ASCEND, CONTINUE, RESURRECT, RETURN, FALL, NONE
+		DESCEND, ASCEND, CONTINUE, RESURRECT, RETURN, FALL, RETRYING, NONE
 	};
 	public static Mode mode;
 	
@@ -95,6 +96,9 @@ public class InterlevelScene extends PixelScene {
 		case FALL:
 			text = TXT_FALLING;
 			break;
+			case RETRYING:
+			text = TXT_RETRYING;
+			break;
 		default:
 		}
 		
@@ -133,6 +137,9 @@ public class InterlevelScene extends PixelScene {
 						break;
 					case FALL:
 						fall();
+						break;
+					case RETRYING:
+						retrying();
 						break;
 					default:
 					}
@@ -291,6 +298,15 @@ public class InterlevelScene extends PixelScene {
 			Dungeon.hero.resurrect( -1 );
 			Dungeon.resetLevel();
 		}
+	}
+
+	private void retrying() throws Exception {
+
+		Actor.fixTime();
+		Dungeon.hero.resurrect(Dungeon.depth);
+		Dungeon.depth = 1;
+		Level level = Dungeon.loadLevel( Dungeon.hero.heroClass );
+		Dungeon.switchLevel( level, level.entrance );
 	}
 	
 	@Override

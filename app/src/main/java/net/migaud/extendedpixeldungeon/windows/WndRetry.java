@@ -60,7 +60,7 @@ public class WndRetry extends Window {
             protected void onClick() {
                 hide();
 
-                InterlevelScene.mode = InterlevelScene.Mode.RESURRECT;
+                InterlevelScene.mode = InterlevelScene.Mode.RETRYING;
                 Game.switchScene( InterlevelScene.class );
             }
         };
