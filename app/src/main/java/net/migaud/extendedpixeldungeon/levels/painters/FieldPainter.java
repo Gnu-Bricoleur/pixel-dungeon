@@ -17,13 +17,19 @@
  */
 package net.migaud.extendedpixeldungeon.levels.painters;
 
+        import net.migaud.extendedpixeldungeon.actors.blobs.Alchemy;
+        import net.migaud.extendedpixeldungeon.actors.blobs.Cooking;
         import net.migaud.extendedpixeldungeon.actors.blobs.Foliage;
+        import net.migaud.extendedpixeldungeon.items.Generator;
         import net.migaud.extendedpixeldungeon.items.Honeypot;
+        import net.migaud.extendedpixeldungeon.items.Item;
+        import net.migaud.extendedpixeldungeon.items.potions.Potion;
         import net.migaud.extendedpixeldungeon.levels.Level;
         import net.migaud.extendedpixeldungeon.levels.Room;
         import net.migaud.extendedpixeldungeon.levels.Terrain;
         import net.migaud.extendedpixeldungeon.plants.Sungrass;
         import net.migaud.extendedpixeldungeon.plants.Wheat;
+        import net.migaud.extendedpixeldungeon.utils.Point;
         import net.migaud.extendedpixeldungeon.utils.Random;
 
 public class FieldPainter extends Painter {
@@ -35,16 +41,40 @@ public class FieldPainter extends Painter {
         fill( level, room, 2, Terrain.WHEAT );
 
         room.entrance().set( Room.Door.Type.REGULAR );
-
-        if (Random.Int( 2 ) == 0) {
-            level.drop( new Honeypot(), room.random() );
-        } else {
-            int bushes = (Random.Int( 5 ) == 0 ? 2 : 1);
-            for (int i=0; i < bushes; i++) {
-                int pos = room.random();
-                set( level, pos, Terrain.WHEAT );
-                level.plant( new Wheat.Seed(), pos );
-            }
+        Room.Door entrance = room.entrance();
+        Point pot = null;
+        if (entrance.x == room.left) {
+            pot = new Point( room.right-1, Random.Int( 2 ) == 0 ? room.top + 1 : room.bottom - 1 );
+        } else if (entrance.x == room.right) {
+            pot = new Point( room.left+1, Random.Int( 2 ) == 0 ? room.top + 1 : room.bottom - 1 );
+        } else if (entrance.y == room.top) {
+            pot = new Point( Random.Int( 2 ) == 0 ? room.left + 1 : room.right - 1, room.bottom-1 );
+        } else if (entrance.y == room.bottom) {
+            pot = new Point( Random.Int( 2 ) == 0 ? room.left + 1 : room.right - 1, room.top+1 );
         }
+        set( level, pot, Terrain.ALCHEMY );
+        Cooking cooking = new Cooking();
+        cooking.seed( pot.x + Level.WIDTH * pot.y, 1 );
+        level.blobs.put( Cooking.class, cooking );
+
+        int bushes = (Random.Int( 5 ) == 0 ? 2 : 1);
+        for (int i=0; i < bushes; i++) {
+            int pos = room.random();
+            set( level, pos, Terrain.WHEAT );
+            level.plant( new Wheat.Seed(), pos );
+        }
+
+    }
+
+    private static Item prize( Level level ) {
+
+        Item prize = level.itemToSpanAsPrize();
+        if (prize instanceof Potion) {
+            return prize;
+        } else if (prize != null) {
+            level.addItemToSpawn( prize );
+        }
+
+        return Generator.random( Generator.Category.POTION );
     }
 }

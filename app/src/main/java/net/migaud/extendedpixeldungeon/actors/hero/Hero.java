@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 
+import net.migaud.extendedpixeldungeon.levels.features.CookingPot;
 import net.migaud.extendedpixeldungeon.noosa.Camera;
 import net.migaud.extendedpixeldungeon.noosa.Game;
 import net.migaud.extendedpixeldungeon.noosa.audio.Sample;
@@ -452,6 +453,11 @@ public class Hero extends Char {
 
 				return actCook( (HeroAction.Cook)curAction );
 				
+			} else
+			if (curAction instanceof HeroAction.CookWheat) {
+
+				return actCookWheat( (HeroAction.CookWheat)curAction );
+
 			}
 		}
 		
@@ -559,6 +565,25 @@ public class Hero extends Char {
 			
 			return true;
 			
+		} else {
+			ready();
+			return false;
+		}
+	}
+
+
+	private boolean actCookWheat(HeroAction.CookWheat action ) {
+		int dst = action.dst;
+		if (Dungeon.visible[dst]) {
+
+			ready();
+			CookingPot.operate( this, dst );
+			return false;
+
+		} else if (getCloser( dst )) {
+
+			return true;
+
 		} else {
 			ready();
 			return false;
