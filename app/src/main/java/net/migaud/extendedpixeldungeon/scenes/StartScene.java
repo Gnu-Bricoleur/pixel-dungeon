@@ -156,14 +156,14 @@ public class StartScene extends PixelScene {
 		};
 		add( btnLoad );
 
-		btnRetry = new GameButton( TXT_RETRY ) {
+		/*btnRetry = new GameButton( TXT_RETRY ) {
 			@Override
 			protected void onClick() {
 				InterlevelScene.mode = InterlevelScene.Mode.CONTINUE;
 				Game.switchScene( InterlevelScene.class );
 			}
 		};
-		add( btnRetry );
+		add( btnRetry );*/
 
 		float centralHeight = buttonY - title.y - title.height();
 		
@@ -276,7 +276,7 @@ public class StartScene extends PixelScene {
 			
 			GamesInProgress.Info info = GamesInProgress.check( curClass );
 			if (info != null) {
-				btnRetry.visible = false;
+				//btnRetry.visible = false;
 				btnLoad.visible = true;
 				btnLoad.secondary( Utils.format( TXT_DPTH_LVL, info.depth, info.level ), info.challenges );
 				
