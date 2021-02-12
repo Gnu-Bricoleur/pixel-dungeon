@@ -992,10 +992,14 @@ public class Hero extends Char {
 		Char ch;
 		Heap heap;
 		
-		if (Dungeon.level.map[cell] == Terrain.ALCHEMY && cell != pos) {
+		if (Dungeon.level.map[cell] == Terrain.COOKING && cell != pos) {
 			
+			curAction = new HeroAction.CookWheat( cell );
+			
+		}else if (Dungeon.level.map[cell] == Terrain.ALCHEMY && cell != pos) {
+
 			curAction = new HeroAction.Cook( cell );
-			
+
 		} else if (Level.fieldOfView[cell] && (ch = Actor.findChar( cell )) instanceof Mob) {
 			
 			if (ch instanceof NPC) {

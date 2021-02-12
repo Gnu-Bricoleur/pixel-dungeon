@@ -170,7 +170,7 @@ public class ItemSprite extends MovieClip {
 					GameScene.ripple( heap.pos );
 				} else {
 					int cell = Dungeon.level.map[heap.pos];
-					water = (cell == Terrain.WELL || cell == Terrain.ALCHEMY);
+					water = (cell == Terrain.WELL || cell == Terrain.ALCHEMY || cell == Terrain.COOKING);
 				}
 				
 				if (!(heap.peek() instanceof Gold)) {

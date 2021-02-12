@@ -119,7 +119,7 @@ public class Plant implements Bundlable {
 		
 		@Override
 		protected void onThrow( int cell ) {
-			if (Dungeon.level.map[cell] == Terrain.ALCHEMY || Level.pit[cell]) {
+			if (Dungeon.level.map[cell] == Terrain.ALCHEMY || Level.pit[cell] || Dungeon.level.map[cell] == Terrain.COOKING) {
 				super.onThrow( cell );
 			} else {
 				Dungeon.level.plant( this, cell );

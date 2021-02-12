@@ -61,7 +61,7 @@ public class Cooking extends Blob {
         Heap heap = Dungeon.level.heaps.get( cell );
         if (heap != null) {
 
-            Item result = heap.transmute();
+            Item result = heap.cook();
             if (result != null) {
                 Dungeon.level.drop( result, cell ).sprite.drop( cell );
             }

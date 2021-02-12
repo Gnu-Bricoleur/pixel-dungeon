@@ -269,10 +269,11 @@ public class Generator {
 			Sorrowmoss.Seed.class,
 			Dreamweed.Seed.class,
 			Sungrass.Seed.class,
+			Wheat.Seed.class,
 			Earthroot.Seed.class,
 			Fadeleaf.Seed.class,
 			Rotberry.Seed.class };
-		Category.SEED.probs = new float[]{ 1, 1, 1, 1, 1, 1, 1, 0 };
+		Category.SEED.probs = new float[]{ 1, 1, 1, 1, 1, 1, 1, 1, 0 };
 		
 		Category.MISC.classes = new Class<?>[]{ 
 			Bomb.class,

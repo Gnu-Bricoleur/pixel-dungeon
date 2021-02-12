@@ -52,7 +52,7 @@ public class FieldPainter extends Painter {
         } else if (entrance.y == room.bottom) {
             pot = new Point( Random.Int( 2 ) == 0 ? room.left + 1 : room.right - 1, room.top+1 );
         }
-        set( level, pot, Terrain.ALCHEMY );
+        set( level, pot, Terrain.COOKING );
         Cooking cooking = new Cooking();
         cooking.seed( pot.x + Level.WIDTH * pot.y, 1 );
         level.blobs.put( Cooking.class, cooking );

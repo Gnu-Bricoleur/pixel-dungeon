@@ -338,6 +338,68 @@ public class Heap implements Bundlable {
 			return null;
 		}
 	}
+
+
+	public Item cook() {
+
+		CellEmitter.get( pos ).burst( Speck.factory( Speck.BUBBLE ), 3 );
+		Splash.at( pos, 0xFFFFFF, 3 );
+
+		float chances[] = new float[items.size()];
+		int count = 0;
+
+		int index = 0;
+		for (Item item : items) {
+			if (item instanceof Plant.Seed) {
+				count += item.quantity;
+				chances[index++] = item.quantity;
+			} else {
+				count = 0;
+				break;
+			}
+		}
+
+		if (count >= SEEDS_TO_POTION) {
+
+			CellEmitter.get( pos ).burst( Speck.factory( Speck.WOOL ), 6 );
+			Sample.INSTANCE.play( Assets.SND_PUFF );
+
+			if (Random.Int( count ) == 0) {
+
+				CellEmitter.center( pos ).burst( Speck.factory( Speck.EVOKE ), 3 );
+
+				destroy();
+
+				Statistics.potionsCooked++;
+				Badges.validatePotionsCooked();
+
+				return Generator.random( Generator.Category.FOOD );
+
+			} else {
+
+				Plant.Seed proto = (Plant.Seed)items.get( Random.chances( chances ) );
+				Class<? extends Item> itemClass = proto.alchemyClass;
+
+				destroy();
+
+				Statistics.potionsCooked++;
+				Badges.validatePotionsCooked();
+
+				if (itemClass == null) {
+					return Generator.random( Generator.Category.FOOD );
+				} else {
+					try {
+						return itemClass.newInstance();
+					} catch (Exception e) {
+						return null;
+					}
+				}
+			}
+
+		} else {
+			return null;
+		}
+	}
 	
 	public static void burnFX( int pos ) {
 		CellEmitter.get( pos ).burst( ElmoParticle.FACTORY, 6 );

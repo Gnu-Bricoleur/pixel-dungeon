@@ -23,6 +23,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 
+import net.migaud.extendedpixeldungeon.actors.blobs.Cooking;
 import net.migaud.extendedpixeldungeon.levels.features.HighWheat;
 import net.migaud.extendedpixeldungeon.noosa.Scene;
 import net.migaud.extendedpixeldungeon.noosa.audio.Sample;
@@ -569,7 +570,7 @@ public abstract class Level implements Bundlable {
 			}
 		}
 		
-		if ((map[cell] == Terrain.ALCHEMY) && !(item instanceof Plant.Seed)) {
+		if ((map[cell] == Terrain.ALCHEMY || map[cell] == Terrain.COOKING) && !(item instanceof Plant.Seed)) {
 			int n;
 			do {
 				n = cell + NEIGHBOURS8[Random.Int( 8 )];
@@ -714,7 +715,13 @@ public abstract class Level implements Bundlable {
 				Alchemy.transmute( cell );
 			}
 			break;
-			
+
+		case Terrain.COOKING:
+			if (ch == null) {
+				Cooking.transmute( cell );
+			}
+			break;
+
 		case Terrain.DOOR:
 			Door.enter( cell );
 			break;
@@ -983,6 +990,8 @@ public abstract class Level implements Bundlable {
 			return "Bookshelf";
 		case Terrain.ALCHEMY:
 			return "Alchemy pot";
+		case Terrain.COOKING:
+			return "Cooking pot";
 		default:
 			return "???";
 		}
@@ -1028,6 +1037,8 @@ public abstract class Level implements Bundlable {
 			return "Someone wanted to adorn this place, but failed, obviously.";
 		case Terrain.ALCHEMY:
 			return "Drop some seeds here to cook a potion.";
+		case Terrain.COOKING:
+			return "Maybe you can try to cook something here";
 		case Terrain.EMPTY_WELL:
 			return "The well has run dry.";
 		default:
