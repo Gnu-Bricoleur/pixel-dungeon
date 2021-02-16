@@ -83,6 +83,8 @@ import net.migaud.extendedpixeldungeon.levels.traps.PoisonTrap;
 import net.migaud.extendedpixeldungeon.levels.traps.SummoningTrap;
 import net.migaud.extendedpixeldungeon.levels.traps.ToxicTrap;
 
+import static net.migaud.extendedpixeldungeon.levels.Terrain.EMPTY_SP;
+
 public abstract class Level implements Bundlable {
 	
 	public static enum Feeling {
@@ -302,7 +304,7 @@ public abstract class Level implements Bundlable {
 	}
 	
 	public int tunnelTile() {
-		return feeling == Feeling.CHASM ? Terrain.EMPTY_SP : Terrain.EMPTY;
+		return feeling == Feeling.CHASM ? EMPTY_SP : Terrain.EMPTY;
 	}
 	
 	private void adjustMapSize() {
@@ -460,7 +462,7 @@ public abstract class Level implements Bundlable {
 			if (pit[i]) {
 				if (!pit[i - WIDTH]) {
 					int c = map[i - WIDTH];
-					if (c == Terrain.EMPTY_SP || c == Terrain.STATUE_SP) {
+					if (c == EMPTY_SP || c == Terrain.STATUE_SP) {
 						map[i] = Terrain.CHASM_FLOOR_SP;  
 					} else if (water[i - WIDTH]) {
 						map[i] = Terrain.CHASM_WATER;
@@ -574,7 +576,15 @@ public abstract class Level implements Bundlable {
 			int n;
 			do {
 				n = cell + NEIGHBOURS8[Random.Int( 8 )];
-			} while (map[n] != Terrain.EMPTY_SP);
+			} while (map[n] != Terrain.EMPTY_SP);// || (map[n] !=Terrain.WHEAT));
+			cell = n;
+		}
+
+		if (map[cell] == Terrain.COOKING && (item instanceof Food) ) {
+			int n;
+			do {
+				n = cell + NEIGHBOURS8[Random.Int( 8 )];
+			} while (map[n] != Terrain.WHEAT);// || (map[n] !=Terrain.WHEAT));
 			cell = n;
 		}
 		
@@ -920,7 +930,7 @@ public abstract class Level implements Bundlable {
 		case Terrain.CHASM:
 			return "Chasm";
 		case Terrain.EMPTY:
-		case Terrain.EMPTY_SP:
+		case EMPTY_SP:
 		case Terrain.EMPTY_DECO:
 		case Terrain.SECRET_TOXIC_TRAP:
 		case Terrain.SECRET_FIRE_TRAP:

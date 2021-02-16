@@ -116,7 +116,7 @@ public class Terrain {
 		flags[ALCHEMY]		= PASSABLE;
 		flags[COOKING]		= PASSABLE;
 		flags[HIGH_WHEAT]	= PASSABLE | LOS_BLOCKING | FLAMABLE;
-		flags[WHEAT]		= PASSABLE | FLAMABLE;
+		flags[WHEAT]		= PASSABLE | FLAMABLE | flags[EMPTY];
 		
 		flags[CHASM_WALL]		= flags[CHASM];
 		flags[CHASM_FLOOR]		= flags[CHASM];

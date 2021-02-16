@@ -33,6 +33,8 @@ package net.migaud.extendedpixeldungeon.levels.painters;
         import net.migaud.extendedpixeldungeon.utils.Random;
 
 public class FieldPainter extends Painter {
+    public static final int WIDTH = 32;
+    public static final int[] NEIGHBOURS8 = {+1, -1, +WIDTH, -WIDTH, +1+WIDTH, +1-WIDTH, -1+WIDTH, -1-WIDTH};
 
     public static void paint(Level level, Room room ) {
 
@@ -53,8 +55,21 @@ public class FieldPainter extends Painter {
             pot = new Point( Random.Int( 2 ) == 0 ? room.left + 1 : room.right - 1, room.top+1 );
         }
         set( level, pot, Terrain.COOKING );
+        Point n;
+        for (int i = -1; i <= 1; i++ ){
+            for (int j = -1; j <= 1; j++ ){
+                n = new Point(pot.x + i, pot.y + j);
+                if (n.x == pot.x && n.y == pot.y) {
+                    //pot position
+                } else {
+                    if (n.y < room.bottom && n.y > room.top && n.x < room.right && n.x > room.left){
+                        set(level, n, Terrain.EMPTY_SP);
+                    }
+                }
+            }
+        }
         Cooking cooking = new Cooking();
-        cooking.seed( pot.x + Level.WIDTH * pot.y, 1 );
+        cooking.seed( pot.x + WIDTH * pot.y, 1 );
         level.blobs.put( Cooking.class, cooking );
 
         int bushes = (Random.Int( 5 ) == 0 ? 2 : 1);

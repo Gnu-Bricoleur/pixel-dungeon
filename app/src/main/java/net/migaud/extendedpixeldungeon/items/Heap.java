@@ -17,9 +17,12 @@
  */
 package net.migaud.extendedpixeldungeon.items;
 
+import android.util.Log;
+
 import java.util.Collection;
 import java.util.LinkedList;
 
+import net.migaud.extendedpixeldungeon.items.food.Food;
 import net.migaud.extendedpixeldungeon.noosa.audio.Sample;
 import net.migaud.extendedpixeldungeon.noosa.tweeners.AlphaTweener;
 import net.migaud.extendedpixeldungeon.Assets;
@@ -341,6 +344,8 @@ public class Heap implements Bundlable {
 
 
 	public Item cook() {
+		String TAG = "[Pixel Dungeon X]";
+		Log.i(TAG, "What's cooking babay");
 
 		CellEmitter.get( pos ).burst( Speck.factory( Speck.BUBBLE ), 3 );
 		Splash.at( pos, 0xFFFFFF, 3 );
@@ -360,41 +365,15 @@ public class Heap implements Bundlable {
 		}
 
 		if (count >= SEEDS_TO_POTION) {
-
+			Log.i(TAG, "enough seed");
 			CellEmitter.get( pos ).burst( Speck.factory( Speck.WOOL ), 6 );
 			Sample.INSTANCE.play( Assets.SND_PUFF );
 
-			if (Random.Int( count ) == 0) {
+			CellEmitter.center( pos ).burst( Speck.factory( Speck.EVOKE ), 3 );
 
-				CellEmitter.center( pos ).burst( Speck.factory( Speck.EVOKE ), 3 );
-
-				destroy();
-
-				Statistics.potionsCooked++;
-				Badges.validatePotionsCooked();
-
-				return Generator.random( Generator.Category.FOOD );
-
-			} else {
-
-				Plant.Seed proto = (Plant.Seed)items.get( Random.chances( chances ) );
-				Class<? extends Item> itemClass = proto.alchemyClass;
-
-				destroy();
-
-				Statistics.potionsCooked++;
-				Badges.validatePotionsCooked();
-
-				if (itemClass == null) {
-					return Generator.random( Generator.Category.FOOD );
-				} else {
-					try {
-						return itemClass.newInstance();
-					} catch (Exception e) {
-						return null;
-					}
-				}
-			}
+			destroy();
+			Log.i(TAG, "gimme food");
+			return Generator.random( Generator.Category.FOOD);
 
 		} else {
 			return null;

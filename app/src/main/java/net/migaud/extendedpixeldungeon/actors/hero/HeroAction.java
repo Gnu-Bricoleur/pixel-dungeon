@@ -81,6 +81,7 @@ public class HeroAction {
 
 	public static class CookWheat extends HeroAction {
 		public CookWheat( int pot ) {
+
 			this.dst = pot;
 		}
 	}

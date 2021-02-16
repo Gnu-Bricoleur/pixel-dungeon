@@ -17,6 +17,8 @@
  */
 package net.migaud.extendedpixeldungeon.actors.blobs;
 
+        import android.util.Log;
+
         import net.migaud.extendedpixeldungeon.Dungeon;
         import net.migaud.extendedpixeldungeon.Journal;
         import net.migaud.extendedpixeldungeon.effects.BlobEmitter;
@@ -63,6 +65,9 @@ public class Cooking extends Blob {
 
             Item result = heap.cook();
             if (result != null) {
+                String TAG = "[Pixel Dungeon X]";
+                Log.i(TAG, "danke fur die food !");
+                Log.i(TAG, result.name());
                 Dungeon.level.drop( result, cell ).sprite.drop( cell );
             }
         }
