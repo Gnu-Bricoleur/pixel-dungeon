@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 
+import net.migaud.extendedpixeldungeon.levels.features.CookingPot;
 import net.migaud.extendedpixeldungeon.noosa.Camera;
 import net.migaud.extendedpixeldungeon.noosa.Game;
 import net.migaud.extendedpixeldungeon.noosa.audio.Sample;
@@ -457,6 +458,11 @@ public class Hero extends Char {
 
 				return actCook( (HeroAction.Cook)curAction );
 				
+			} else
+			if (curAction instanceof HeroAction.CookWheat) {
+
+				return actCookWheat( (HeroAction.CookWheat)curAction );
+
 			}
 		}
 		
@@ -564,6 +570,25 @@ public class Hero extends Char {
 			
 			return true;
 			
+		} else {
+			ready();
+			return false;
+		}
+	}
+
+
+	private boolean actCookWheat(HeroAction.CookWheat action ) {
+		int dst = action.dst;
+		if (Dungeon.visible[dst]) {
+
+			ready();
+			CookingPot.operate( this, dst );
+			return false;
+
+		} else if (getCloser( dst )) {
+
+			return true;
+
 		} else {
 			ready();
 			return false;
@@ -972,10 +997,14 @@ public class Hero extends Char {
 		Char ch;
 		Heap heap;
 		
-		if (Dungeon.level.map[cell] == Terrain.ALCHEMY && cell != pos) {
+		if (Dungeon.level.map[cell] == Terrain.COOKING && cell != pos) {
 			
+			curAction = new HeroAction.CookWheat( cell );
+			
+		}else if (Dungeon.level.map[cell] == Terrain.ALCHEMY && cell != pos) {
+
 			curAction = new HeroAction.Cook( cell );
-			
+
 		} else if (Level.fieldOfView[cell] && (ch = Actor.findChar( cell )) instanceof Mob) {
 			
 			if (ch instanceof NPC) {

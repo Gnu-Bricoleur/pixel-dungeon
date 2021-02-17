@@ -91,6 +91,7 @@ public class Room extends Rect implements Graph.Node, Bundlable {
 		RAT_KING	( RatKingPainter.class ),
 		WEAK_FLOOR	( WeakFloorPainter.class ),
 		PIT			( PitPainter.class ),
+		FIELD		( FieldPainter.class ),
 		ALTAR		( AltarPainter.class );
 		
 		private Method paint;

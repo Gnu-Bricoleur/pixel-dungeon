@@ -17,9 +17,12 @@
  */
 package net.migaud.extendedpixeldungeon.items;
 
+import android.util.Log;
+
 import java.util.Collection;
 import java.util.LinkedList;
 
+import net.migaud.extendedpixeldungeon.items.food.Food;
 import net.migaud.extendedpixeldungeon.noosa.audio.Sample;
 import net.migaud.extendedpixeldungeon.noosa.tweeners.AlphaTweener;
 import net.migaud.extendedpixeldungeon.Assets;
@@ -334,6 +337,44 @@ public class Heap implements Bundlable {
 				}
 			}		
 			
+		} else {
+			return null;
+		}
+	}
+
+
+	public Item cook() {
+		String TAG = "[Pixel Dungeon X]";
+		Log.i(TAG, "What's cooking babay");
+
+		CellEmitter.get( pos ).burst( Speck.factory( Speck.BUBBLE ), 3 );
+		Splash.at( pos, 0xFFFFFF, 3 );
+
+		float chances[] = new float[items.size()];
+		int count = 0;
+
+		int index = 0;
+		for (Item item : items) {
+			if (item instanceof Plant.Seed) {
+				count += item.quantity;
+				chances[index++] = item.quantity;
+			} else {
+				count = 0;
+				break;
+			}
+		}
+
+		if (count >= SEEDS_TO_POTION) {
+			Log.i(TAG, "enough seed");
+			CellEmitter.get( pos ).burst( Speck.factory( Speck.WOOL ), 6 );
+			Sample.INSTANCE.play( Assets.SND_PUFF );
+
+			CellEmitter.center( pos ).burst( Speck.factory( Speck.EVOKE ), 3 );
+
+			destroy();
+			Log.i(TAG, "gimme food");
+			return Generator.random( Generator.Category.FOOD);
+
 		} else {
 			return null;
 		}

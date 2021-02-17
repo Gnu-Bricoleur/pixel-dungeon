@@ -44,10 +44,13 @@ public class Terrain {
 	public static final int STATUE_SP		= 36;
 	public static final int BOOKSHELF		= 41;
 	public static final int ALCHEMY			= 42;
+	public static final int COOKING			= 77;
 	public static final int CHASM_FLOOR		= 43;
 	public static final int CHASM_FLOOR_SP	= 44;
 	public static final int CHASM_WALL		= 45;
 	public static final int CHASM_WATER		= 46;
+	public static final int WHEAT			= 66;
+	public static final int HIGH_WHEAT		= 79;
 	
 	public static final int SECRET_DOOR				= 16;
 	public static final int TOXIC_TRAP				= 17;
@@ -83,7 +86,8 @@ public class Terrain {
 	public static final int UNSTITCHABLE	= 0x100; 
 	
 	public static final int[] flags = new int[256];
-	static {
+
+    static {
 		flags[CHASM]		= AVOID	| PIT									| UNSTITCHABLE;
 		flags[EMPTY]		= PASSABLE;
 		flags[GRASS]		= PASSABLE | FLAMABLE;
@@ -110,6 +114,9 @@ public class Terrain {
 		flags[STATUE_SP]	= flags[STATUE] 								| UNSTITCHABLE;
 		flags[BOOKSHELF]	= flags[BARRICADE]								| UNSTITCHABLE;
 		flags[ALCHEMY]		= PASSABLE;
+		flags[COOKING]		= PASSABLE;
+		flags[HIGH_WHEAT]	= PASSABLE | LOS_BLOCKING | FLAMABLE;
+		flags[WHEAT]		= PASSABLE | FLAMABLE | flags[EMPTY];
 		
 		flags[CHASM_WALL]		= flags[CHASM];
 		flags[CHASM_FLOOR]		= flags[CHASM];
