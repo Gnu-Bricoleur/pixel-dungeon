@@ -17,17 +17,26 @@
  */
 package net.migaud.extendedpixeldungeon.windows;
 
+        import net.migaud.extendedpixeldungeon.Dungeon;
+        import net.migaud.extendedpixeldungeon.items.Item;
+        import net.migaud.extendedpixeldungeon.levels.Level;
         import net.migaud.extendedpixeldungeon.noosa.BitmapTextMultiline;
         import net.migaud.extendedpixeldungeon.noosa.Game;
         import net.migaud.extendedpixeldungeon.Rankings;
         import net.migaud.extendedpixeldungeon.Statistics;
         import net.migaud.extendedpixeldungeon.actors.hero.Hero;
         import net.migaud.extendedpixeldungeon.items.Ankh;
+        import net.migaud.extendedpixeldungeon.scenes.GameScene;
         import net.migaud.extendedpixeldungeon.scenes.InterlevelScene;
         import net.migaud.extendedpixeldungeon.scenes.PixelScene;
         import net.migaud.extendedpixeldungeon.sprites.ItemSprite;
         import net.migaud.extendedpixeldungeon.ui.RedButton;
         import net.migaud.extendedpixeldungeon.ui.Window;
+        import net.migaud.extendedpixeldungeon.utils.Random;
+
+        import java.io.IOException;
+        import java.util.ArrayList;
+        import java.util.Collections;
 
 public class WndRetry extends Window {
 
@@ -60,6 +69,35 @@ public class WndRetry extends Window {
             protected void onClick() {
                 hide();
 
+                int pos = Dungeon.hero.pos;
+
+                ArrayList<Integer> passable = new ArrayList<Integer>();
+                for (Integer ofs : Level.NEIGHBOURS8) {
+                    int cell = pos + ofs;
+                    if ((Level.passable[cell] || Level.avoid[cell]) && Dungeon.level.heaps.get( cell ) == null) {
+                        passable.add( cell );
+                    }
+                }
+                Collections.shuffle( passable );
+
+                ArrayList<Item> items = new ArrayList<Item>( Dungeon.hero.belongings.backpack.items );
+                for (Integer cell : passable) {
+                    if (items.isEmpty()) {
+                        break;
+                    }
+
+                    Item item = Random.element( items );
+                    Dungeon.level.drop( item, cell ).sprite.drop( pos );
+                    items.remove( item );
+                }
+
+                
+                //Hero.reallyDie( WndResurrect.causeOfDeath , true);
+                Dungeon.deleteGame( Dungeon.hero.heroClass, false);
+                InterlevelScene.mode = InterlevelScene.Mode.RESURRECT;
+                //Game.switchScene( InterlevelScene.class );
+
+                //Dungeon.deleteGame( Dungeon.hero.heroClass, false );
                 InterlevelScene.mode = InterlevelScene.Mode.RETRYING;
                 Game.switchScene( InterlevelScene.class );
             }
@@ -73,7 +111,8 @@ public class WndRetry extends Window {
                 hide();
 
                 Rankings.INSTANCE.submit( false );
-                Hero.reallyDie( WndResurrect.causeOfDeath , false);
+                Hero.reallyDie( WndResurrect.causeOfDeath);
+                //Dungeon.deleteGame( Dungeon.hero.heroClass, true );
             }
         };
         btnNo.setRect( 0, btnYes.bottom() + GAP, WIDTH, BTN_HEIGHT );

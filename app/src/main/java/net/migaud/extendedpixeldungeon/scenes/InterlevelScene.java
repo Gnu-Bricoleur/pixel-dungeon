@@ -303,10 +303,17 @@ public class InterlevelScene extends PixelScene {
 	private void retrying() throws Exception {
 
 		Actor.fixTime();
-		Dungeon.hero.resurrect(Dungeon.depth);
+		Dungeon.saveAll();
+		Dungeon.saveLevel();
+		//Dungeon.hero.resurrect(Dungeon.depth);
+
+		Dungeon.hero.resurrect( -1 );
+		Dungeon.resetLevel();
+
 		Dungeon.depth = 1;
 		Level level = Dungeon.loadLevel( Dungeon.hero.heroClass );
 		Dungeon.switchLevel( level, level.entrance );
+
 	}
 	
 	@Override
