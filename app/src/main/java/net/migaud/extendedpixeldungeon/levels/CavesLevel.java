@@ -17,6 +17,8 @@
  */
 package net.migaud.extendedpixeldungeon.levels;
 
+import net.migaud.extendedpixeldungeon.items.food.Pasty;
+import net.migaud.extendedpixeldungeon.items.weapon.melee.PickAxe;
 import net.migaud.extendedpixeldungeon.noosa.Game;
 import net.migaud.extendedpixeldungeon.noosa.Group;
 import net.migaud.extendedpixeldungeon.noosa.Scene;
@@ -140,23 +142,15 @@ public class CavesLevel extends RegularLevel {
 				map[i] = Terrain.WALL_DECO;
 			}
 		}
-		int signPos = roomEntrance.random();
-		while (true) {
-			signPos = roomEntrance.random();
-			if (signPos != entrance) {
-				map[signPos] = Terrain.SIGN;
-				break;
-			}
-		}
 
 		while (true) {
 			int pos = roomEntrance.random();
-			if (pos != entrance && pos != signPos) {
+			if (pos != entrance) {
 				map[pos] = Terrain.SIGN;
 				break;
 			}
 		}
-		
+
 		if (Dungeon.bossLevel( Dungeon.depth + 1 )) {
 			return;
 		}
