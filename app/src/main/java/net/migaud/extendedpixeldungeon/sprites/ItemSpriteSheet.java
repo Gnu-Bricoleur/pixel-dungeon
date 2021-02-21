@@ -43,7 +43,7 @@ public class ItemSpriteSheet {
 	public static final int SPEAR			= 29;
 	public static final int GLAIVE			= 30;
 
-	public static final int PICKAXE_2		= 119;
+	public static final int PICK			= 119;
 	
 	// Missiles
 	public static final int SHURIKEN		= 15;

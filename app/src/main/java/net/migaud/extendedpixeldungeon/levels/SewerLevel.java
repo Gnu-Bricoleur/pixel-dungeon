@@ -18,7 +18,7 @@
 package net.migaud.extendedpixeldungeon.levels;
 
 import net.migaud.extendedpixeldungeon.items.food.Pasty;
-import net.migaud.extendedpixeldungeon.items.weapon.melee.PickAxe;
+import net.migaud.extendedpixeldungeon.items.weapon.melee.Pick;
 import net.migaud.extendedpixeldungeon.noosa.Game;
 import net.migaud.extendedpixeldungeon.noosa.Scene;
 import net.migaud.extendedpixeldungeon.noosa.particles.Emitter;
@@ -108,7 +108,7 @@ public class SewerLevel extends RegularLevel {
 			while (true) {
 				int pos = roomEntrance.random();
 				if (pos != entrance && pos != signPos) {
-					drop( new PickAxe(), pos );
+					drop( new Pick(), pos );
 					break;
 			}
 		}

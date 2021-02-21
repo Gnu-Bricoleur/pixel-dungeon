@@ -92,4 +92,10 @@ public class HeroAction {
 			this.target = target;
 		}
 	}
+
+	public static class Mine extends HeroAction {
+		public Mine( int cell ) {
+			this.dst = cell;
+		}
+	}
 }

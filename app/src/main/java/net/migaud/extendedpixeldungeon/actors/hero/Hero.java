@@ -17,10 +17,13 @@
  */
 package net.migaud.extendedpixeldungeon.actors.hero;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 
+import net.migaud.extendedpixeldungeon.DungeonTilemap;
 import net.migaud.extendedpixeldungeon.levels.features.CookingPot;
 import net.migaud.extendedpixeldungeon.noosa.Camera;
 import net.migaud.extendedpixeldungeon.noosa.Game;
@@ -463,12 +466,44 @@ public class Hero extends Char {
 
 				return actCookWheat( (HeroAction.CookWheat)curAction );
 
+			} else
+			if (curAction instanceof HeroAction.Mine) {
+
+				return actMine( (HeroAction.Mine)curAction );
+
 			}
 		}
 		
 		return false;
 	}
-	
+
+	private boolean actMine(HeroAction.Mine action) {
+		int dst = action.dst;
+		if (getCloser( action.dst )) {
+
+			return true;
+
+		} else {
+			/*if (Dungeon.level.map[pos] == Terrain.SIGN) {
+				Sign.read( pos );
+			}*/
+
+			ready();
+			String TAG = "[Pixel Dungeon X]";
+			Log.i(TAG, "Here Ya mining babay !!");
+			Log.i(TAG, String.valueOf(Dungeon.level.map[dst]));
+			Log.i(TAG, String.valueOf(dst));
+			//Dungeon.level.map[dst] = Terrain.EMPTY_SP;
+			//GameScene.updateMap(dst);
+			Dungeon.level.set( dst, Terrain.EMPTY_SP );
+			GameScene.updateMap( dst );
+			Dungeon.observe();
+
+
+			return false;
+		}
+	}
+
 	public void busy() {
 		ready = false;
 	}
@@ -1040,7 +1075,13 @@ public class Hero extends Char {
 			
 			curAction = new HeroAction.Ascend( cell );
 			
-		} else  {
+		} else if (Dungeon.level.map[cell] == Terrain.WALL) {
+
+			String TAG = "[Pixel Dungeon X]";
+			Log.i(TAG, "So you want to mine ....");
+			curAction = new HeroAction.Mine( cell );
+
+		}else  {
 			
 			curAction = new HeroAction.Move( cell );
 			lastAction = null;

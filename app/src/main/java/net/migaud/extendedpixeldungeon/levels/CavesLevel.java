@@ -18,7 +18,7 @@
 package net.migaud.extendedpixeldungeon.levels;
 
 import net.migaud.extendedpixeldungeon.items.food.Pasty;
-import net.migaud.extendedpixeldungeon.items.weapon.melee.PickAxe;
+import net.migaud.extendedpixeldungeon.items.weapon.melee.Pick;
 import net.migaud.extendedpixeldungeon.noosa.Game;
 import net.migaud.extendedpixeldungeon.noosa.Group;
 import net.migaud.extendedpixeldungeon.noosa.Scene;
