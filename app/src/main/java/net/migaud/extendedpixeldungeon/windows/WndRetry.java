@@ -18,8 +18,10 @@
 package net.migaud.extendedpixeldungeon.windows;
 
         import net.migaud.extendedpixeldungeon.Dungeon;
+
         import net.migaud.extendedpixeldungeon.items.Item;
         import net.migaud.extendedpixeldungeon.levels.Level;
+
         import net.migaud.extendedpixeldungeon.noosa.BitmapTextMultiline;
         import net.migaud.extendedpixeldungeon.noosa.Game;
         import net.migaud.extendedpixeldungeon.Rankings;
@@ -37,6 +39,10 @@ package net.migaud.extendedpixeldungeon.windows;
         import java.io.IOException;
         import java.util.ArrayList;
         import java.util.Collections;
+
+        import java.io.IOException;
+
+        import static net.migaud.extendedpixeldungeon.Dungeon.hero;
 
 public class WndRetry extends Window {
 
@@ -69,35 +75,19 @@ public class WndRetry extends Window {
             protected void onClick() {
                 hide();
 
-                int pos = Dungeon.hero.pos;
 
-                ArrayList<Integer> passable = new ArrayList<Integer>();
-                for (Integer ofs : Level.NEIGHBOURS8) {
-                    int cell = pos + ofs;
-                    if ((Level.passable[cell] || Level.avoid[cell]) && Dungeon.level.heaps.get( cell ) == null) {
-                        passable.add( cell );
-                    }
-                }
-                Collections.shuffle( passable );
-
-                ArrayList<Item> items = new ArrayList<Item>( Dungeon.hero.belongings.backpack.items );
-                for (Integer cell : passable) {
-                    if (items.isEmpty()) {
-                        break;
-                    }
-
-                    Item item = Random.element( items );
-                    Dungeon.level.drop( item, cell ).sprite.drop( pos );
-                    items.remove( item );
+                /*try {
+                    Dungeon.saveGame(Dungeon.gameFile(hero.heroClass));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }*/
+                try {
+                    Dungeon.saveLevel();
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
 
-                
-                //Hero.reallyDie( WndResurrect.causeOfDeath , true);
-                Dungeon.deleteGame( Dungeon.hero.heroClass, false);
-                InterlevelScene.mode = InterlevelScene.Mode.RESURRECT;
-                //Game.switchScene( InterlevelScene.class );
 
-                //Dungeon.deleteGame( Dungeon.hero.heroClass, false );
                 InterlevelScene.mode = InterlevelScene.Mode.RETRYING;
                 Game.switchScene( InterlevelScene.class );
             }
