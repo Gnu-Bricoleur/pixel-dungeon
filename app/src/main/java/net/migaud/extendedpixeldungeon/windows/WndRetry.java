@@ -18,17 +18,27 @@
 package net.migaud.extendedpixeldungeon.windows;
 
         import net.migaud.extendedpixeldungeon.Dungeon;
+
+        import net.migaud.extendedpixeldungeon.items.Item;
+        import net.migaud.extendedpixeldungeon.levels.Level;
+
         import net.migaud.extendedpixeldungeon.noosa.BitmapTextMultiline;
         import net.migaud.extendedpixeldungeon.noosa.Game;
         import net.migaud.extendedpixeldungeon.Rankings;
         import net.migaud.extendedpixeldungeon.Statistics;
         import net.migaud.extendedpixeldungeon.actors.hero.Hero;
         import net.migaud.extendedpixeldungeon.items.Ankh;
+        import net.migaud.extendedpixeldungeon.scenes.GameScene;
         import net.migaud.extendedpixeldungeon.scenes.InterlevelScene;
         import net.migaud.extendedpixeldungeon.scenes.PixelScene;
         import net.migaud.extendedpixeldungeon.sprites.ItemSprite;
         import net.migaud.extendedpixeldungeon.ui.RedButton;
         import net.migaud.extendedpixeldungeon.ui.Window;
+        import net.migaud.extendedpixeldungeon.utils.Random;
+
+        import java.io.IOException;
+        import java.util.ArrayList;
+        import java.util.Collections;
 
         import java.io.IOException;
 
@@ -65,6 +75,7 @@ public class WndRetry extends Window {
             protected void onClick() {
                 hide();
 
+
                 /*try {
                     Dungeon.saveGame(Dungeon.gameFile(hero.heroClass));
                 } catch (IOException e) {
@@ -75,6 +86,7 @@ public class WndRetry extends Window {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+
 
                 InterlevelScene.mode = InterlevelScene.Mode.RETRYING;
                 Game.switchScene( InterlevelScene.class );
@@ -89,7 +101,8 @@ public class WndRetry extends Window {
                 hide();
 
                 Rankings.INSTANCE.submit( false );
-                Hero.reallyDie( WndResurrect.causeOfDeath , false);
+                Hero.reallyDie( WndResurrect.causeOfDeath);
+                //Dungeon.deleteGame( Dungeon.hero.heroClass, true );
             }
         };
         btnNo.setRect( 0, btnYes.bottom() + GAP, WIDTH, BTN_HEIGHT );

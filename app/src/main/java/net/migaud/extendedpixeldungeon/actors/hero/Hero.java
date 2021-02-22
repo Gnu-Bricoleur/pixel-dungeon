@@ -19,6 +19,7 @@ package net.migaud.extendedpixeldungeon.actors.hero;
 
 import android.util.Log;
 
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -183,10 +184,6 @@ public class Hero extends Char {
 		belongings = new Belongings( this );
 		
 		visibleEnemies = new ArrayList<Mob>();
-	}
-
-	public static void reallyDie(Object causeOfDeath) {
-		reallyDie( causeOfDeath , true);
 	}
 
 	public int STR() {
@@ -1229,18 +1226,22 @@ public class Hero extends Char {
 		
 		Ankh ankh = (Ankh)belongings.getItem( Ankh.class );
 		if (ankh == null) {
-			
-			reallyDie( cause );
+			GameScene.show( new WndRetry( cause ) );
+			//reallyDie( cause );
 			
 		} else {
 			
-			Dungeon.deleteGame( Dungeon.hero.heroClass, false );
+			Dungeon.deleteGame( Dungeon.hero.heroClass, false);
 			GameScene.show( new WndResurrect( ankh, cause ) );
 			
 		}
 	}
-	
-	public static void reallyDie( Object cause , Boolean retry) {
+/*
+	public static void reallyDie(Object causeOfDeath) {
+		reallyDie( causeOfDeath , false);
+	}
+*/
+	public static void reallyDie( Object cause) {
 
 		int length = Level.LENGTH;
 		int[] map = Dungeon.level.map;
@@ -1300,14 +1301,22 @@ public class Hero extends Char {
 		if (cause instanceof Hero.Doom) {
 			((Hero.Doom)cause).onDeath();
 		}
+
+		GameScene.show( new WndRetry( cause ) );
+		Dungeon.deleteGame( Dungeon.hero.heroClass, true );
+		/*
 		if(retry) {
 			Dungeon.deleteGame( Dungeon.hero.heroClass, false );
-			GameScene.show( new WndRetry( cause ) );
+			String TAG = "[Pixel Dungeon X]";
+			Log.i(TAG, "You died but you get anothr chance" );
+
 		} else {
 			//reallyDie(cause, false);
+			String TAG = "[Pixel Dungeon X]";
+			Log.i(TAG, "You died but choosed to stay that way ?!?" );
 			Dungeon.deleteGame( Dungeon.hero.heroClass, true );
 		}
-
+		*/
 	}
 	
 	@Override
