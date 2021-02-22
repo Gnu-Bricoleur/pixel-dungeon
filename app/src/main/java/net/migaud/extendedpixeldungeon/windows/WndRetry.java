@@ -17,6 +17,7 @@
  */
 package net.migaud.extendedpixeldungeon.windows;
 
+        import net.migaud.extendedpixeldungeon.Dungeon;
         import net.migaud.extendedpixeldungeon.noosa.BitmapTextMultiline;
         import net.migaud.extendedpixeldungeon.noosa.Game;
         import net.migaud.extendedpixeldungeon.Rankings;
@@ -28,6 +29,10 @@ package net.migaud.extendedpixeldungeon.windows;
         import net.migaud.extendedpixeldungeon.sprites.ItemSprite;
         import net.migaud.extendedpixeldungeon.ui.RedButton;
         import net.migaud.extendedpixeldungeon.ui.Window;
+
+        import java.io.IOException;
+
+        import static net.migaud.extendedpixeldungeon.Dungeon.hero;
 
 public class WndRetry extends Window {
 
@@ -59,6 +64,17 @@ public class WndRetry extends Window {
             @Override
             protected void onClick() {
                 hide();
+
+                /*try {
+                    Dungeon.saveGame(Dungeon.gameFile(hero.heroClass));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }*/
+                try {
+                    Dungeon.saveLevel();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
 
                 InterlevelScene.mode = InterlevelScene.Mode.RETRYING;
                 Game.switchScene( InterlevelScene.class );
