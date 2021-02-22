@@ -1279,6 +1279,7 @@ public class Hero extends Char {
 		Collections.shuffle( passable );
 		
 		ArrayList<Item> items = new ArrayList<Item>( Dungeon.hero.belongings.backpack.items );
+		/*
 		for (Integer cell : passable) {
 			if (items.isEmpty()) {
 				break;
@@ -1288,7 +1289,12 @@ public class Hero extends Char {
 			Dungeon.level.drop( item, cell ).sprite.drop( pos );
 			items.remove( item );
 		}
-		
+		*/
+		for (Item item : items) {
+			Integer cell = Random.element( passable );
+			Dungeon.level.drop( item, cell ).sprite.drop( pos );
+			//items.remove( item );
+		}
 		GameScene.gameOver();
 		
 		if (cause instanceof Hero.Doom) {
