@@ -101,8 +101,8 @@ public class WndRetry extends Window {
                 hide();
 
                 Rankings.INSTANCE.submit( false );
-                Hero.reallyDie( WndResurrect.causeOfDeath);
-                //Dungeon.deleteGame( Dungeon.hero.heroClass, true );
+                Hero.reallyDie( WndResurrect.causeOfDeath, true);
+                Dungeon.deleteGame( Dungeon.hero.heroClass, true );
             }
         };
         btnNo.setRect( 0, btnYes.bottom() + GAP, WIDTH, BTN_HEIGHT );

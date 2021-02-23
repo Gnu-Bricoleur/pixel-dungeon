@@ -1220,8 +1220,8 @@ public class Hero extends Char {
 		
 		Ankh ankh = (Ankh)belongings.getItem( Ankh.class );
 		if (ankh == null) {
-			GameScene.show( new WndRetry( cause ) );
-			//reallyDie( cause );
+			//GameScene.show( new WndRetry( cause ) );
+			reallyDie( cause , true);
 			
 		} else {
 			
@@ -1230,12 +1230,12 @@ public class Hero extends Char {
 			
 		}
 	}
-/*
+
 	public static void reallyDie(Object causeOfDeath) {
 		reallyDie( causeOfDeath , false);
 	}
-*/
-	public static void reallyDie( Object cause) {
+
+	public static void reallyDie( Object cause, boolean retry) {
 
 		int length = Level.LENGTH;
 		int[] map = Dungeon.level.map;
@@ -1286,21 +1286,27 @@ public class Hero extends Char {
 			((Hero.Doom)cause).onDeath();
 		}
 
-		GameScene.show( new WndRetry( cause ) );
-		Dungeon.deleteGame( Dungeon.hero.heroClass, true );
-		/*
+		//GameScene.show( new WndRetry( cause ) );
+		//Dungeon.deleteGame( Dungeon.hero.heroClass, true );
+
 		if(retry) {
+			GameScene.show( new WndRetry( cause ) );
+
+			/*
 			Dungeon.deleteGame( Dungeon.hero.heroClass, false );
 			String TAG = "[Pixel Dungeon X]";
 			Log.i(TAG, "You died but you get anothr chance" );
-
+			*/
 		} else {
+			Dungeon.deleteGame( Dungeon.hero.heroClass, true );
+			/*
 			//reallyDie(cause, false);
 			String TAG = "[Pixel Dungeon X]";
 			Log.i(TAG, "You died but choosed to stay that way ?!?" );
 			Dungeon.deleteGame( Dungeon.hero.heroClass, true );
+			 */
 		}
-		*/
+
 	}
 	
 	@Override
