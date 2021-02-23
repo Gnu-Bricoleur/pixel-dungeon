@@ -485,17 +485,11 @@ public class Hero extends Char {
 			return true;
 
 		} else {
-			/*if (Dungeon.level.map[pos] == Terrain.SIGN) {
-				Sign.read( pos );
-			}*/
-
 			ready();
 			String TAG = "[Pixel Dungeon X]";
 			Log.i(TAG, "Here Ya mining babay !!");
 			Log.i(TAG, String.valueOf(Dungeon.level.map[dst]));
 			Log.i(TAG, String.valueOf(dst));
-			//Dungeon.level.map[dst] = Terrain.EMPTY_SP;
-			//GameScene.updateMap(dst);
 			Dungeon.level.set( dst, Terrain.EMPTY_SP );
 			GameScene.updateMap( dst );
 			Dungeon.observe();
@@ -1279,17 +1273,7 @@ public class Hero extends Char {
 		Collections.shuffle( passable );
 		
 		ArrayList<Item> items = new ArrayList<Item>( Dungeon.hero.belongings.backpack.items );
-		/*
-		for (Integer cell : passable) {
-			if (items.isEmpty()) {
-				break;
-			}
-			
-			Item item = Random.element( items );
-			Dungeon.level.drop( item, cell ).sprite.drop( pos );
-			items.remove( item );
-		}
-		*/
+
 		for (Item item : items) {
 			Integer cell = Random.element( passable );
 			Dungeon.level.drop( item, cell ).sprite.drop( pos );
