@@ -26,6 +26,7 @@ import java.util.Collections;
 import java.util.HashSet;
 
 import net.migaud.extendedpixeldungeon.DungeonTilemap;
+import net.migaud.extendedpixeldungeon.items.weapon.melee.Pick;
 import net.migaud.extendedpixeldungeon.levels.features.CookingPot;
 import net.migaud.extendedpixeldungeon.noosa.Camera;
 import net.migaud.extendedpixeldungeon.noosa.Game;
@@ -475,6 +476,24 @@ public class Hero extends Char {
 		return false;
 	}
 
+	private boolean miningIsPossible(int dist) {
+		if (dist < 32){
+			return false;
+		}
+		else if (dist > 992){
+			return false;
+		}
+		else if (dist % 32 == 0){
+			return false;
+		}
+		else if (dist % 32 == 31){
+			return false;
+		}
+		else{
+			return true;
+		}
+	}
+
 	private boolean actMine(HeroAction.Mine action) {
 		int dst = action.dst;
 		if (getCloser( action.dst )) {
@@ -483,15 +502,15 @@ public class Hero extends Char {
 
 		} else {
 			ready();
-			String TAG = "[Pixel Dungeon X]";
-			Log.i(TAG, "Here Ya mining babay !!");
-			Log.i(TAG, String.valueOf(Dungeon.level.map[dst]));
-			Log.i(TAG, String.valueOf(dst));
-			Dungeon.level.set( dst, Terrain.EMPTY_SP );
-			GameScene.updateMap( dst );
-			Dungeon.observe();
-
-
+			if (belongings.weapon instanceof Pick && miningIsPossible(dst)) {
+				String TAG = "[Pixel Dungeon X]";
+				Log.i(TAG, "Here Ya mining babay !!");
+				Log.i(TAG, String.valueOf(Dungeon.level.map[dst]));
+				Log.i(TAG, String.valueOf(dst));
+				Level.set(dst, Terrain.EMPTY_SP);
+				GameScene.updateMap(dst);
+				Dungeon.observe();
+			}
 			return false;
 		}
 	}
