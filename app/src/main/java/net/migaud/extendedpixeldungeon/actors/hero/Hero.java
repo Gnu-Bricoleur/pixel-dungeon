@@ -187,6 +187,12 @@ public class Hero extends Char {
 		visibleEnemies = new ArrayList<Mob>();
 	}
 
+	public void reset(){
+		attackSkill = 10;//useless
+		defenseSkill = 5;
+		ready();
+	}
+
 	public int STR() {
 		return weakened ? STR - 2 : STR;
 	}

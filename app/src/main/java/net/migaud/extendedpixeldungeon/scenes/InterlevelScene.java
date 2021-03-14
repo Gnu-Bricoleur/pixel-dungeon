@@ -19,6 +19,7 @@ package net.migaud.extendedpixeldungeon.scenes;
 
 import java.io.FileNotFoundException;
 
+import net.migaud.extendedpixeldungeon.actors.hero.Hero;
 import net.migaud.extendedpixeldungeon.noosa.BitmapText;
 import net.migaud.extendedpixeldungeon.noosa.Camera;
 import net.migaud.extendedpixeldungeon.noosa.Game;
@@ -307,13 +308,33 @@ public class InterlevelScene extends PixelScene {
 		Dungeon.saveLevel();
 		//Dungeon.hero.resurrect(Dungeon.depth);
 
-		Dungeon.hero.resurrect( -1 );
+		//Dungeon.hero.resurrect( -1 );
+
+		//int posTemp = Dungeon.hero.pos;
+		Dungeon.hero = new Hero();
+
 		Dungeon.resetLevel();
 
 		Dungeon.depth = 1;
 		Level level = Dungeon.loadLevel( Dungeon.hero.heroClass );
 		Dungeon.switchLevel( level, level.entrance );
 
+
+		Dungeon.hero.live();
+		Dungeon.hero.pos = level.entrance;
+		StartScene.curClass.initHero( Dungeon.hero );
+		Dungeon.hero.lastAction = null;
+		Dungeon.hero.curAction = null;
+		Dungeon.hero.ready = true;
+
+
+		//Hero.reset();
+		//Dungeon.hero.HT = 20;
+		//Dungeon.hero.HP = 20;
+		//Dungeon.hero.STR = 10;
+		//Dungeon.hero.awareness = 0.1f;
+		//Dungeon.hero.lvl = 1;
+		//Dungeon.hero.exp = 0;
 	}
 	
 	@Override
