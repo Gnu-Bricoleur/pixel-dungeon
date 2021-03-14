@@ -17,7 +17,7 @@ TODO Graphics:
 
 TODO Game mechanics:
 - [?] Check working of dew vial and ankh of resurrection
-- [ ] Check that level of the character is reset after death and retry
+- [x] Check that level of the character is reset after death and retry
 - [ ] Add tomb sprite with funny caption
 - [ ] Make fields into abvandonned living quarters of someone sometimes mabe, leftovers, campfire, crockpot, etc
 - [?] Make sure that there's always a path down
