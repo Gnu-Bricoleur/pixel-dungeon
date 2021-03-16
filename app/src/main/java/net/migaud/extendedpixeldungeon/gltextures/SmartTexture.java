@@ -18,6 +18,7 @@
 package net.migaud.extendedpixeldungeon.gltextures;
 
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.RectF;
 
 import net.migaud.extendedpixeldungeon.glwrap.Texture;
@@ -77,6 +78,7 @@ public class SmartTexture extends Texture {
 		width = bitmap.getWidth();
 		height = bitmap.getHeight();
 	}
+
 	
 	public void reload() {
 		id = new SmartTexture( bitmap ).id;

@@ -48,6 +48,8 @@ public class HeroSprite extends CharSprite {
 		link( Dungeon.hero );
 		
 		texture( Dungeon.hero.heroClass.spritesheet() );
+
+		//Image.java ->
 		updateArmor();
 		
 		idle();
@@ -138,6 +140,7 @@ public class HeroSprite extends CharSprite {
 		
 		RectF patch = tiers().get( armorTier );
 		Image avatar = new Image( cl.spritesheet() );
+
 		RectF frame = avatar.texture.uvRect( 1, 0, FRAME_WIDTH, FRAME_HEIGHT );
 		frame.offset( patch.left, patch.top );
 		avatar.frame( frame );

@@ -23,10 +23,13 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.LinearGradient;
 import android.graphics.Paint;
 import android.graphics.Shader.TileMode;
+import android.util.Log;
 
+import net.migaud.extendedpixeldungeon.Assets;
 import net.migaud.extendedpixeldungeon.glwrap.Texture;
 
 public class TextureCache {
@@ -122,7 +125,26 @@ public class TextureCache {
 			tx.reload();
 		}		
 	}
-	
+
+	public static Bitmap recolor(Bitmap image){
+		image = image.copy( Bitmap.Config.ARGB_8888 , true);
+		final String TAG = "[Pixel Dungeon X]";
+		Log.i(TAG, "height" + image.getHeight());
+		Log.i(TAG, "width -> " + image.getWidth());
+		int colorWhite = (0 & 0xff) << 24 | (251 & 0xff) << 16 | (242 & 0xff) << 8 | (231 & 0xff); //16511719
+		Log.i(TAG, "blanc -> " + colorWhite);
+		for (int x = 0; x < image.getWidth(); x++) {
+			for (int y = 0; y < image.getHeight(); y++){
+				Log.i(TAG, "Color en 1, 1 -> " + image.getPixel(x,y));
+				if(image.getPixel(x,y) == Color.WHITE){
+					image.setPixel(x,y,Color.RED);
+				}
+				//image.setPixel(x,y,Color.GREEN);
+			}
+		}
+		return image;
+	}
+
 	public static Bitmap getBitmap( Object src ) {
 		
 		try {
@@ -133,8 +155,17 @@ public class TextureCache {
 				
 			} else if (src instanceof String) {
 				
-				return BitmapFactory.decodeStream( 
+				Bitmap pic = BitmapFactory.decodeStream(
 					context.getAssets().open( (String)src ), null, bitmapOptions );
+
+				if(src == Assets.ROGUE){
+					final String TAG = "[Pixel Dungeon X]";
+					Log.i(TAG, "this passed the loop -> " + src);
+
+					pic = recolor(pic);
+				}
+
+				return pic;
 				
 			} else if (src instanceof Bitmap) {
 				
