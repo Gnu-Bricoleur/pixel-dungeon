@@ -105,6 +105,13 @@ public class TextureCache {
 		} else {
 
 			SmartTexture tx = new SmartTexture( getBitmap( src ) );
+			if(src == Assets.ROGUE){
+				final String TAG = "[Pixel Dungeon X]";
+				Log.i(TAG, "this passed the loop -> " + src);
+
+				tx.bitmap = recolor(tx.bitmap);
+			}
+
 			all.put( src, tx );
 			return tx;
 		}
@@ -131,15 +138,46 @@ public class TextureCache {
 		final String TAG = "[Pixel Dungeon X]";
 		Log.i(TAG, "height" + image.getHeight());
 		Log.i(TAG, "width -> " + image.getWidth());
-		int colorWhite = (0 & 0xff) << 24 | (251 & 0xff) << 16 | (242 & 0xff) << 8 | (231 & 0xff); //16511719
+		int colorWhite = (255 & 0xff) << 24 | (251 & 0xff) << 16 | (242 & 0xff) << 8 | (231 & 0xff); //16511719
+		int myWhite = Color.rgb(126, 126, 126);
+		int myWhit = Color.rgb(255, 255, 255);
+		int myWhi = Color.rgb(201, 193, 185);
 		Log.i(TAG, "blanc -> " + colorWhite);
+		int[] colors = {Color.rgb(163, 126, 126),
+				Color.rgb(126, 126, 126),
+				Color.rgb(126, 126, 126)};
+		int[] defaultHairColors = {Color.rgb(209, 155, 63),
+				Color.rgb(98, 55, 9),
+				Color.rgb(133, 73, 12),
+				Color.rgb(171, 94, 16),
+				Color.rgb(184, 136, 55)};
 		for (int x = 0; x < image.getWidth(); x++) {
 			for (int y = 0; y < image.getHeight(); y++){
 				Log.i(TAG, "Color en 1, 1 -> " + image.getPixel(x,y));
-				if(image.getPixel(x,y) == Color.WHITE){
+				int transparent = Color.argb(0,0,0,0);
+				if(image.getPixel(x,y) == myWhite){
 					image.setPixel(x,y,Color.RED);
 				}
-				//image.setPixel(x,y,Color.GREEN);
+				else if(image.getPixel(x,y) == myWhit){
+					image.setPixel(x,y,Color.BLUE);
+				}
+				else if(image.getPixel(x,y) == myWhi){
+					image.setPixel(x,y,Color.GREEN);
+				}
+				/*else {//image.setPixel(x,y,Color.GREEN);
+					image.setPixel(x,y,Color.YELLOW);
+				}*/
+				else if (image.getPixel(x,y) == transparent){
+					image.setPixel(x,y,Color.YELLOW);
+				}
+				for (int color : defaultHairColors) {
+					if(image.getPixel(x,y) == color){
+						image.setPixel(x,y,Color.RED);
+						//int newColor = color.darker();
+						//image.setPixel(x,y,newColor);
+					}
+				}
+
 			}
 		}
 		return image;

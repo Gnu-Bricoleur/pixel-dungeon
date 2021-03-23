@@ -30,6 +30,8 @@ import net.migaud.extendedpixeldungeon.actors.hero.Hero;
 import net.migaud.extendedpixeldungeon.actors.hero.HeroClass;
 import net.migaud.extendedpixeldungeon.utils.Callback;
 
+import static net.migaud.extendedpixeldungeon.gltextures.TextureCache.recolor;
+
 public class HeroSprite extends CharSprite {
 	
 	private static final int FRAME_WIDTH	= 12;
