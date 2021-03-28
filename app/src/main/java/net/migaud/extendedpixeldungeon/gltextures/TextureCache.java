@@ -32,6 +32,8 @@ import android.util.Log;
 import net.migaud.extendedpixeldungeon.Assets;
 import net.migaud.extendedpixeldungeon.glwrap.Texture;
 
+import static net.migaud.extendedpixeldungeon.items.ColorGenerator.randomEyeColor;
+
 public class TextureCache {
 
 	public static Context context;
@@ -112,6 +114,10 @@ public class TextureCache {
 				tx.bitmap = recolor(tx.bitmap);
 			}
 
+			if(src == Assets.AVATARS){
+				tx.bitmap = recolor(tx.bitmap);
+			}
+
 			all.put( src, tx );
 			return tx;
 		}
@@ -138,38 +144,28 @@ public class TextureCache {
 		final String TAG = "[Pixel Dungeon X]";
 		Log.i(TAG, "height" + image.getHeight());
 		Log.i(TAG, "width -> " + image.getWidth());
-		int colorWhite = (255 & 0xff) << 24 | (251 & 0xff) << 16 | (242 & 0xff) << 8 | (231 & 0xff); //16511719
-		int myWhite = Color.rgb(126, 126, 126);
-		int myWhit = Color.rgb(255, 255, 255);
-		int myWhi = Color.rgb(201, 193, 185);
-		Log.i(TAG, "blanc -> " + colorWhite);
-		int[] colors = {Color.rgb(163, 126, 126),
-				Color.rgb(126, 126, 126),
-				Color.rgb(126, 126, 126)};
-		int[] defaultHairColors = {Color.rgb(209, 155, 63),
-				Color.rgb(98, 55, 9),
-				Color.rgb(133, 73, 12),
-				Color.rgb(171, 94, 16),
-				Color.rgb(184, 136, 55)};
+		int eyeColor = randomEyeColor();
+		int transparent = Color.argb(0,0,0,0);
+		int[] defaultHairColors = {Color.argb(255, 209, 155, 63),
+				Color.argb(255, 98, 55, 9),
+				Color.argb(255, 133, 73, 12),
+				Color.argb(255, 171, 94, 16),
+				Color.argb(255, 184, 136, 55)};
+		for (int x = 0; x < 12; x++) {
+			for (int y = 0; y < 12; y++) {
+				Log.i(TAG, "color" + image.getPixel(x,y));
+			}
+		}
 		for (int x = 0; x < image.getWidth(); x++) {
 			for (int y = 0; y < image.getHeight(); y++){
-				Log.i(TAG, "Color en 1, 1 -> " + image.getPixel(x,y));
-				int transparent = Color.argb(0,0,0,0);
-				if(image.getPixel(x,y) == myWhite){
-					image.setPixel(x,y,Color.RED);
+				//Change eye color randomly
+				if(image.getPixel(x,y) == Color.BLACK){
+					image.setPixel(x,y,eyeColor);
 				}
-				else if(image.getPixel(x,y) == myWhit){
-					image.setPixel(x,y,Color.BLUE);
-				}
-				else if(image.getPixel(x,y) == myWhi){
-					image.setPixel(x,y,Color.GREEN);
-				}
-				/*else {//image.setPixel(x,y,Color.GREEN);
-					image.setPixel(x,y,Color.YELLOW);
-				}*/
 				else if (image.getPixel(x,y) == transparent){
 					image.setPixel(x,y,Color.YELLOW);
 				}
+				//change hair color randomly
 				for (int color : defaultHairColors) {
 					if(image.getPixel(x,y) == color){
 						image.setPixel(x,y,Color.RED);
@@ -177,7 +173,6 @@ public class TextureCache {
 						//image.setPixel(x,y,newColor);
 					}
 				}
-
 			}
 		}
 		return image;

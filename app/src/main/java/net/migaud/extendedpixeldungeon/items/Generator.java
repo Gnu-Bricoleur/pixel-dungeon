@@ -17,22 +17,16 @@
  */
 package net.migaud.extendedpixeldungeon.items;
 
+import android.graphics.Color;
+
 import java.util.HashMap;
 
 import net.migaud.extendedpixeldungeon.Dungeon;
 import net.migaud.extendedpixeldungeon.actors.hero.Hero;
-import net.migaud.extendedpixeldungeon.items.armor.*;
 import net.migaud.extendedpixeldungeon.items.bags.Bag;
 import net.migaud.extendedpixeldungeon.items.food.Food;
 import net.migaud.extendedpixeldungeon.items.food.MysteryMeat;
 import net.migaud.extendedpixeldungeon.items.food.Pasty;
-import net.migaud.extendedpixeldungeon.items.potions.*;
-import net.migaud.extendedpixeldungeon.items.rings.*;
-import net.migaud.extendedpixeldungeon.items.scrolls.*;
-import net.migaud.extendedpixeldungeon.items.wands.*;
-import net.migaud.extendedpixeldungeon.items.weapon.*;
-import net.migaud.extendedpixeldungeon.items.weapon.melee.*;
-import net.migaud.extendedpixeldungeon.items.weapon.missiles.*;
 import net.migaud.extendedpixeldungeon.plants.*;
 import net.migaud.extendedpixeldungeon.utils.Random;
 import net.migaud.extendedpixeldungeon.items.armor.Armor;
@@ -142,12 +136,14 @@ public class Generator {
 		
 		public float prob;
 		public Class<? extends Item> superClass;
+
+		public Color color;
 		
 		private Category( float prob, Class<? extends Item> superClass ) {
 			this.prob = prob;
 			this.superClass = superClass;
 		}
-		
+
 		public static int order( Item item ) {
 			for (int i=0; i < values().length; i++) {
 				if (values()[i].superClass.isInstance( item )) {
@@ -158,7 +154,7 @@ public class Generator {
 			return item instanceof Bag ? Integer.MAX_VALUE : Integer.MAX_VALUE - 1;
 		}
 	};
-	
+
 	private static HashMap<Category,Float> categoryProbs = new HashMap<Generator.Category, Float>();
 	
 	static {
