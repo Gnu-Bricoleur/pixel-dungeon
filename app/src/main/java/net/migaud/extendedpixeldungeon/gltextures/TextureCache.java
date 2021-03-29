@@ -146,13 +146,13 @@ public class TextureCache {
 		Log.i(TAG, "width -> " + image.getWidth());
 		int eyeColor = randomEyeColor();
 		int transparent = Color.argb(0,0,0,0);
-		int[] defaultHairColors = {Color.argb(255, 209, 155, 63),
-				Color.argb(255, 98, 55, 9),
-				Color.argb(255, 133, 73, 12),
-				Color.argb(255, 171, 94, 16),
-				Color.argb(255, 184, 136, 55)};
-		for (int x = 0; x < 12; x++) {
-			for (int y = 0; y < 12; y++) {
+		int[] defaultHairColors = {Color.argb(255, 226, 155, 55),//GUT
+				Color.argb(255, 110, 55, 4),//GUT
+				Color.argb(255, 149, 73, 3),//GUT
+				Color.argb(255, 192, 94, 02),//GUT
+				Color.argb(255, 199, 136, 48)};//GUT
+		for (int x = 0; x < 7; x++) {
+			for (int y = 0; y < 7; y++) {
 				Log.i(TAG, "color" + image.getPixel(x,y));
 			}
 		}
@@ -165,10 +165,13 @@ public class TextureCache {
 				else if (image.getPixel(x,y) == transparent){
 					image.setPixel(x,y,Color.YELLOW);
 				}
+				else if  (image.getPixel(x,y) == -9554172){
+					image.setPixel(x,y,Color.RED);
+				}
 				//change hair color randomly
 				for (int color : defaultHairColors) {
 					if(image.getPixel(x,y) == color){
-						image.setPixel(x,y,Color.RED);
+						image.setPixel(x,y,Color.BLUE);
 						//int newColor = color.darker();
 						//image.setPixel(x,y,newColor);
 					}
