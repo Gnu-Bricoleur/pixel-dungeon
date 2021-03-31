@@ -32,7 +32,9 @@ import android.util.Log;
 import net.migaud.extendedpixeldungeon.Assets;
 import net.migaud.extendedpixeldungeon.glwrap.Texture;
 
+import static net.migaud.extendedpixeldungeon.items.ColorGenerator.hairColorShade;
 import static net.migaud.extendedpixeldungeon.items.ColorGenerator.randomEyeColor;
+import static net.migaud.extendedpixeldungeon.items.ColorGenerator.randomHairColor;
 
 public class TextureCache {
 
@@ -145,6 +147,7 @@ public class TextureCache {
 		Log.i(TAG, "height" + image.getHeight());
 		Log.i(TAG, "width -> " + image.getWidth());
 		int eyeColor = randomEyeColor();
+		int hairColor = randomHairColor();
 		int transparent = Color.argb(0,0,0,0);
 		int[] defaultHairColors = {Color.argb(255, 226, 155, 55),//GUT
 				Color.argb(255, 110, 55, 4),//GUT
@@ -162,18 +165,13 @@ public class TextureCache {
 				if(image.getPixel(x,y) == Color.BLACK){
 					image.setPixel(x,y,eyeColor);
 				}
-				else if (image.getPixel(x,y) == transparent){
-					image.setPixel(x,y,Color.YELLOW);
-				}
-				else if  (image.getPixel(x,y) == -9554172){
-					image.setPixel(x,y,Color.RED);
-				}
+				//else if (image.getPixel(x,y) == transparent){
+				//	image.setPixel(x,y,Color.YELLOW);
+				//}
 				//change hair color randomly
 				for (int color : defaultHairColors) {
 					if(image.getPixel(x,y) == color){
-						image.setPixel(x,y,Color.BLUE);
-						//int newColor = color.darker();
-						//image.setPixel(x,y,newColor);
+						image.setPixel(x,y,hairColorShade(color, hairColor));
 					}
 				}
 			}
