@@ -26,15 +26,15 @@ public class ColorGenerator {
 
     public static int randomHairColor() {
         //Approximative worldwide stats
-        int[] hairColors = { Color.argb(255, 149, 69, 27),//Brown
-                Color.argb(255, 10, 145, 241),//Blond
-                Color.argb(255, 52, 187, 37),//Redhead
-                Color.argb(255, 133, 132, 59),//Black
-                Color.argb(255, 255, 187, 0),//White
-                Color.argb(255, 77, 77, 77)//Gray
+        int[] hairColors = { Color.argb(255, 236, 105, 12),//Brown
+                Color.argb(255, 246, 246, 57),//Blond
+                Color.argb(255, 236, 61, 24),//Redhead
+                Color.argb(255, 41, 41, 41),//Black
+                Color.argb(255, 225, 225, 225),//White
+                Color.argb(255, 125, 125, 125)//Gray
         };
 
-        float[] hairColorProbability = new float[]{68, 10, 3, 6, 6, 7};
+        float[] hairColorProbability = new float[]{30, 15, 5, 10, 20, 20};
 
         return randomColorFromArray(hairColors, hairColorProbability);
     }
