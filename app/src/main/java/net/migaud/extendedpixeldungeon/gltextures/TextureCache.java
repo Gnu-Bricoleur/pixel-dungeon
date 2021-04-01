@@ -148,17 +148,13 @@ public class TextureCache {
 		Log.i(TAG, "width -> " + image.getWidth());
 		int eyeColor = randomEyeColor();
 		int hairColor = randomHairColor();
+		hairColor = Color.argb(255, 160, 60, 25);
 		int transparent = Color.argb(0,0,0,0);
 		int[] defaultHairColors = {Color.argb(255, 226, 155, 55),//GUT
 				Color.argb(255, 110, 55, 4),//GUT
 				Color.argb(255, 149, 73, 3),//GUT
-				Color.argb(255, 192, 94, 02),//GUT
+				Color.argb(255, 192, 94, 2),//GUT
 				Color.argb(255, 199, 136, 48)};//GUT
-		for (int x = 0; x < 7; x++) {
-			for (int y = 0; y < 7; y++) {
-				Log.i(TAG, "color" + image.getPixel(x,y));
-			}
-		}
 		for (int x = 0; x < image.getWidth(); x++) {
 			for (int y = 0; y < image.getHeight(); y++){
 				//Change eye color randomly

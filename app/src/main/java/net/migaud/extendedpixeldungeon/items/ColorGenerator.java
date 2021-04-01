@@ -2,6 +2,7 @@ package net.migaud.extendedpixeldungeon.items;
 
 import android.graphics.Color;
 import android.support.annotation.ColorInt;
+import android.util.Log;
 
 import static android.graphics.Color.blue;
 import static android.graphics.Color.green;
@@ -26,7 +27,7 @@ public class ColorGenerator {
 
     public static int randomHairColor() {
         //Approximative worldwide stats
-        int[] hairColors = { Color.argb(255, 236, 105, 12),//Brown
+        int[] hairColors = { Color.argb(255, 226, 155, 55),//Brown
                 Color.argb(255, 246, 246, 57),//Blond
                 Color.argb(255, 236, 61, 24),//Redhead
                 Color.argb(255, 41, 41, 41),//Black
@@ -63,7 +64,11 @@ public class ColorGenerator {
         int dg = 155 - green(currentColor);
         int db = 55 - blue(currentColor);
         //apply this distance to the desiredMainColor
-        int shadedColor = Color.argb(255, red(desiredMainColor) + dr, green(desiredMainColor) + dg, blue(desiredMainColor) + db);
+        int shadedColor = Color.argb(255, red(desiredMainColor) - dr, green(desiredMainColor) - dg, blue(desiredMainColor) - db);
+        final String TAG = "[Pixel Dungeon X]";
+        Log.i(TAG, "red" + red(shadedColor));
+        Log.i(TAG, "g" + green(shadedColor));
+        Log.i(TAG, "b" + blue(shadedColor));
         //return the result
         return shadedColor;
     }
