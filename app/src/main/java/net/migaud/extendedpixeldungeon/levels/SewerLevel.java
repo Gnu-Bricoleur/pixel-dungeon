@@ -170,7 +170,7 @@ public class SewerLevel extends RegularLevel {
 		case Terrain.BOOKSHELF:
 			return "The bookshelf is packed with cheap useless books. Might it burn?";
 		case Terrain.WHEAT:
-			return "Someone or something decided stepped on this wild crops.";
+			return "Someone or something decided to step on these wild crops.";
 		case Terrain.HIGH_WHEAT:
 			return "Wheat seeds brought to sewers from the surface grew up well enough. Perhaps you can make some food from these crops.";
 		case Terrain.COOKING:
