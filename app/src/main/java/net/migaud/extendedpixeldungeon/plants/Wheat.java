@@ -33,8 +33,8 @@ public class Wheat extends Plant {
     private static final String TXT_DESC = "Wheat is the perfect plant to cook bread";
 
     {
-        image = 12;
-        plantName = "Wheat";
+        image = 8;
+        plantName = "Overgrown wheat";
     }
 
     @Override
@@ -57,10 +57,10 @@ public class Wheat extends Plant {
 
     public static class Seed extends Plant.Seed {
         {
-            plantName = "Wheat";
+            plantName = "wheat";
 
-            name = "seed of " + plantName;
-            image = ItemSpriteSheet.SEED_SUNGRASS;
+            name = "Seed of " + plantName;
+            image = ItemSpriteSheet.SEED_WHEAT;
 
             plantClass = Wheat.class;
             alchemyClass = PotionOfHealing.class;
