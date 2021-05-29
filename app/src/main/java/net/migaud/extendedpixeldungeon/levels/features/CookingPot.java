@@ -24,7 +24,7 @@ package net.migaud.extendedpixeldungeon.levels.features;
 
 public class CookingPot {
 
-    private static final String TXT_SELECT_SEED	= "Select a seed to throw";
+    private static final String TXT_SELECT_SEED	= "Select ingredients";
 
     private static Hero hero;
     private static int pos;

@@ -151,6 +151,12 @@ public class SewerLevel extends RegularLevel {
 		switch (tile) {
 		case Terrain.WATER:
 			return "Murky water";
+		case Terrain.WHEAT:
+			return "Crushed wheat";
+		case Terrain.HIGH_WHEAT:
+			return "Grown wheat";
+		case Terrain.COOKING:
+			return "Cooking pot";
 		default:
 			return super.tileName( tile );
 		}
@@ -163,6 +169,12 @@ public class SewerLevel extends RegularLevel {
 			return "Wet yellowish moss covers the floor.";
 		case Terrain.BOOKSHELF:
 			return "The bookshelf is packed with cheap useless books. Might it burn?";
+		case Terrain.WHEAT:
+			return "Someone or something decided stepped on this wild crops.";
+		case Terrain.HIGH_WHEAT:
+			return "Wheat seeds brought to sewers from the surface grew up well enough. Perhaps you can make some food from these crops.";
+		case Terrain.COOKING:
+			return "A big metal stewpot. How is the liquid inside actually boiling?";
 		default:
 			return super.tileDesc( tile );
 		}
